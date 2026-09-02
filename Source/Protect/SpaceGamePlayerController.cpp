@@ -1,4 +1,4 @@
-#include "SpaceGamePlayerController.h"
+ï»¿#include "SpaceGamePlayerController.h"
 #include <EnhancedInputSubsystems.h>
 #include <Kismet/GameplayStatics.h>
 #include <EnhancedInputComponent.h>
@@ -8,7 +8,7 @@ void ASpaceGamePlayerController::BeginPlay()
 	Super::BeginPlay();
 
 	/**
-	*	ƒ}ƒbƒsƒ“ƒOƒRƒ“ƒeƒLƒXƒg‚Ì’Ç‰Á
+	*	ãƒãƒƒãƒ”ãƒ³ã‚°ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã®è¿½åŠ 
 	*/
 	if (ULocalPlayer* LP = GetLocalPlayer())
 	{
@@ -20,7 +20,8 @@ void ASpaceGamePlayerController::BeginPlay()
 	}
 
 	/**
-	*	GameManager‚Ìæ“¾
+	*	GameManagerã®å–å¾—
+	*		ç§»å‹•å…¥åŠ›ã®å—ã‘æ¸¡ã—
 	*/
 	GameManager = Cast<AGameManager>(
 		UGameplayStatics::GetActorOfClass(GetWorld(), AGameManager::StaticClass()));

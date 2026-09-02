@@ -1,6 +1,6 @@
-#include "GameManager.h"
+ï»¿#include "GameManager.h"
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 AGameManager::AGameManager()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -11,12 +11,17 @@ void AGameManager::BeginPlay()
 	Super::BeginPlay();
 
 	/**
-	*	Player‚Ì‰Šú‰»
+	*	Playerã®åˆæœŸåŒ–
 	*/
 	Player = NewObject<UPlayerObject>(this);
 	Player->Init();
 
-	PlayerVisual = GetWorld()->SpawnActor<AShipVisual>();
+	PlayerVisual = GetWorld()->SpawnActor<AShipVisual>(PlayerVisualClass);
+
+	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
+	{
+		PC->SetViewTarget(PlayerVisual);
+	}
 }
 
 void AGameManager::Tick(float DeltaTime)

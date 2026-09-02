@@ -1,4 +1,4 @@
-#include "PlayerObject.h"
+ï»¿#include "PlayerObject.h"
 
 
 UPlayerObject::UPlayerObject()
@@ -10,62 +10,62 @@ UPlayerObject::~UPlayerObject()
 }
 
 /**
-* ‰Šú‰»ˆ—
+* åˆæœŸåŒ–å‡¦ç†
 */
 void UPlayerObject::Init()
 {
 	/** 
-	*	ƒ‚ƒfƒ‹‚Ì‰ñ“]‚ÆƒXƒP[ƒ‹‚Ìİ’è
-	*		[feature]ƒXƒe[ƒW‚²‚Æ‚ÉAƒ‚ƒfƒ‹‚ÌŒü‚«‚â‘å‚«‚³‚ªˆá‚¤‚Ì‚ÅA‚±‚±‚Åİ’è‚·‚éŒ`‚É•ÏX
+	*	ãƒ¢ãƒ‡ãƒ«ã®å›è»¢ã¨ã‚¹ã‚±ãƒ¼ãƒ«ã®è¨­å®š
+	*		[feature]ã‚¹ãƒ†ãƒ¼ã‚¸ã”ã¨ã«ã€ãƒ¢ãƒ‡ãƒ«ã®å‘ãã‚„å¤§ãã•ãŒé•ã†ã®ã§ã€ã“ã“ã§è¨­å®šã™ã‚‹å½¢ã«å¤‰æ›´
 	*/
-	ModelTransform.SetRotation(FRotator(0.f, -90.f, 0.f).Quaternion());
-	ModelTransform.SetScale3D(FVector(0.005f));
+	ModelTransform.SetRotation(FRotator(0.f, 0.f, 0.f).Quaternion());
+	ModelTransform.SetScale3D(FVector(1.f));
 }
 
 /**
-*	XVˆ—
-*		å‚É“ü—Í‚É‰‚¶‚½ˆ—‚ğs‚¤
+*	æ›´æ–°å‡¦ç†
+*		ä¸»ã«å…¥åŠ›ã«å¿œã˜ãŸå‡¦ç†ã‚’è¡Œã†
 */
 void UPlayerObject::Update(float DeltaTime)
 {
 	FVector Pos = Transform.GetLocation();
-	/**
-	*	í‚É‘Oi
-	*		[feature]ƒQ[ƒ€ƒ‚[ƒh‚É‚æ‚Á‚Ä‘€ì•û–@‚ğ•ÏX(ƒXƒs[ƒhƒAƒbƒv/ƒ_ƒEƒ“‚ÌÀ‘•‚àŒŸ“¢)
-	*/
-	Pos.Z += InputH * MoveSpeed * DeltaTime;
 
 	/**
-	*	ˆÚ“®”ÍˆÍ‚Ìİ’è
-	*		[feature]ƒXƒe[ƒW/ê–Ê‚²‚Æ‚ÉAˆÚ“®”ÍˆÍ‚ÍˆÙ‚È‚é‚½‚ßA”ÍˆÍ‚ğó‚¯æ‚éŒ`‚É•ÏX
+	*	å¸¸ã«å‰é€²
+	*		[feature]ã‚²ãƒ¼ãƒ ãƒ¢ãƒ¼ãƒ‰ã«ã‚ˆã£ã¦æ“ä½œæ–¹æ³•ã‚’å¤‰æ›´(ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚¢ãƒƒãƒ—/ãƒ€ã‚¦ãƒ³ã®å®Ÿè£…ã‚‚æ¤œè¨)
 	*/
-	if (InputV != 0.f && Pos.Y < 100.f && Pos.Y > -100.f)
-		Pos.Y -= InputV * MoveSpeed * DeltaTime;
+	Pos.X += MoveSpeed * DeltaTime;
 
+	/**
+	*	ç§»å‹•ç¯„å›²ã®è¨­å®š
+	*		[feature]ã‚¹ãƒ†ãƒ¼ã‚¸/å ´é¢ã”ã¨ã«ã€ç§»å‹•ç¯„å›²ã¯ç•°ãªã‚‹ãŸã‚ã€éšæ™‚ç¯„å›²ã‚’å—ã‘å–ã‚‹å½¢ã«å¤‰æ›´
+	*/
+	if (InputV != 0.f && Pos.Z < 100.f && Pos.Z > -100.f)
+		Pos.Z -= InputV * MoveSpeed * DeltaTime;
 	
 	/**
-	* ˆÚ“®‚É”º‚¤A‰ñ“]ˆ—
-	*	‰E“ü—Í->‰E‚ÉŒX‚­
-	*	¶“ü—Í->¶‚ÉŒX‚­
-	*	“ü—Í‚ª‚È‚¢ê‡->Œ³‚ÌŠp“x‚É–ß‚é
+	* ç§»å‹•ã«ä¼´ã†ã€å›è»¢å‡¦ç†
+	*	å³å…¥åŠ›->å³ã«å‚¾ã
+	*	å·¦å…¥åŠ›->å·¦ã«å‚¾ã
+	*	å…¥åŠ›ãŒãªã„å ´åˆ->å…ƒã®è§’åº¦ã«æˆ»ã‚‹
 	*/
 	FRotator Rot = Transform.Rotator();
 	const float BankSpeed = 120.0f;
 	const float MaxBank = 20.0f;
 
-	if (InputH < 0.f)	// ¶‚Ì“ü—Í
+	if (InputH < 0.f)	// å·¦ã®å…¥åŠ›
 	{
-		Pos.X += InputH * MoveSpeed * DeltaTime;
-		Rot.Roll = FMath::Clamp(Rot.Roll + BankSpeed * DeltaTime, -MaxBank, MaxBank);
-	}
-	else if (InputH > 0.f)	// ‰E‚Ì“ü—Í
-	{
-		Pos.X += InputH * MoveSpeed * DeltaTime;
+		Pos.Y += InputH * MoveSpeed * DeltaTime;
 		Rot.Roll = FMath::Clamp(Rot.Roll - BankSpeed * DeltaTime, -MaxBank, MaxBank);
 	}
-	else // “ü—Í‚È‚µ
+	else if (InputH > 0.f)	// å³ã®å…¥åŠ›
 	{
-		Rot.Roll += FMath::Pow(0.01f, DeltaTime);
+		Pos.Y += InputH * MoveSpeed * DeltaTime;
+		Rot.Roll = FMath::Clamp(Rot.Roll + BankSpeed * DeltaTime, -MaxBank, MaxBank);
+	}
+	else // å…¥åŠ›ãªã—
+	{
+		Rot.Roll *= FMath::Pow(0.01f, DeltaTime);
 		if (FMath::Abs(Rot.Roll) < 0.1f) Rot.Roll = 0.f;
 	}
 
@@ -76,6 +76,7 @@ void UPlayerObject::Update(float DeltaTime)
 
 void UPlayerObject::SetInputAxis(float Horizontal, float Vertical)
 {
+	UE_LOG(LogTemp, Warning, TEXT("InputH=%f InputV=%f"), Horizontal, Vertical)
 	InputH = Horizontal;
 	InputV = Vertical;
 }

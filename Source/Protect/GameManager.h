@@ -5,6 +5,7 @@
 
 #include "GameObjectBase.h"
 #include "PlayerObject.h"
+#include "ShipVisual.h"
 
 #include "GameManager.generated.h"
 
@@ -20,6 +21,8 @@ public:
 	// コンストラクタ
 	AGameManager();
 
+	UPlayerObject* GetPlayerObject() const { return Player; }
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
@@ -28,8 +31,8 @@ protected:
 
 private:
 	UPROPERTY()
-	TArray<UGameObjectBase*> GameObjects;
+	UPlayerObject* Player;
 
 	UPROPERTY()
-	UPlayerObject* Player;
+	AShipVisual* PlayerVisual;
 };

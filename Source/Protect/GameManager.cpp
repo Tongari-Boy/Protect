@@ -15,25 +15,16 @@ void AGameManager::BeginPlay()
 	*/
 	Player = NewObject<UPlayerObject>(this);
 	Player->Init();
-	GameObjects.Add(Player);
+
+	PlayerVisual = GetWorld()->SpawnActor<AShipVisual>();
 }
 
 void AGameManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	for (UGameObjectBase* Obj : GameObjects)
-	{
-		Obj->Update(DeltaTime);
-	}
-
-	for (UGameObjectBase* Obj : GameObjects)
-	{
-		if (Obj->MeshComp)
-		{
-			Obj->MeshComp->SetRelativeTransform(Obj->Transform);
-		}
-	}
+	Player->Update(DeltaTime);
+	PlayerVisual->ApplyTransform(Player->Transform, Player->ModelTransform);
 }
 
 void AGameManager::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

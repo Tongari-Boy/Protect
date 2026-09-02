@@ -21,7 +21,7 @@ public:
 	virtual void Update(float DeltaTime) override;
 
 	// “ü—Í‚ÍGameManager‚©‚çŽó‚¯Žæ‚é
-	void SetInptutAxis(float Horizontal, float Vertical);
+	void SetInputAxis(float Horizontal, float Vertical);
 
 private:
 	float MoveSpeed = 0.0f;

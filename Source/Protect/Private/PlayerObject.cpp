@@ -73,3 +73,9 @@ void UPlayerObject::Update(float DeltaTime)
 	Transform.SetRotation(Rot.Quaternion());
 
 }
+
+void UPlayerObject::SetInputAxis(float Horizontal, float Vertical)
+{
+	InputH = Horizontal;
+	InputV = Vertical;
+}

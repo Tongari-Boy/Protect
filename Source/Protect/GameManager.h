@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -10,7 +10,7 @@
 #include "GameManager.generated.h"
 
 /**
-*	ÉQÅ[ÉÄÉ}ÉlÅ[ÉWÉÉÅ[ÉNÉâÉX
+*	„Ç≤„Éº„É†„Éû„Éç„Éº„Ç∏„É£„Éº„ÇØ„É©„Çπ
 */
 UCLASS()
 class PROTECT_API AGameManager : public AActor
@@ -18,10 +18,12 @@ class PROTECT_API AGameManager : public AActor
 	GENERATED_BODY()
 
 public:
-	// ÉRÉìÉXÉgÉâÉNÉ^
+	// „Ç≥„É≥„Çπ„Éà„É©„ÇØ„Çø
 	AGameManager();
 
 	UPlayerObject* GetPlayerObject() const { return Player; }
+
+	AShipVisual* GetPlayerVisual() const { return PlayerVisual; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -35,4 +37,7 @@ private:
 
 	UPROPERTY()
 	AShipVisual* PlayerVisual;
+
+	UPROPERTY(EditAnywhere, Category = "Spawn")
+	TSubclassOf<AShipVisual>PlayerVisualClass;
 };

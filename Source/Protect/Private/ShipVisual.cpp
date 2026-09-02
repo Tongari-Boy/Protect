@@ -1,15 +1,27 @@
-#include "ShipVisual.h"
+﻿#include "ShipVisual.h"
 
-// �R���X�g���N�^
+// コンストラクタ
 AShipVisual::AShipVisual()
 {
-	PrimaryActorTick.bCanEverTick = false;	// Tick�͎������Ȃ����߁A������
+	PrimaryActorTick.bCanEverTick = false;	// Tickは持たせないため、無効化
+
+	RootScene = CreateDefaultSubobject<USceneComponent>(TEXT("RootScene"));
+	RootComponent = RootScene;
 
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
-	RootComponent = MeshComp;
+	MeshComp->SetupAttachment(RootScene);
+
+	/**
+	*	カメラの設定
+	*/
+	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
+	CameraComp->SetupAttachment(RootScene);
+	CameraComp->SetRelativeLocation(FVector(-300.0f, 0.f, 100.f));	// 自機の後ろかつ上
+	CameraComp->SetRelativeRotation(FRotator(-10.f, 0.f, 0.f));     // 見下ろし
 }
 
 void AShipVisual::ApplyTransform(const FTransform& WorldTransform, const FTransform& ModelOffset)
 {
-	SetActorTransform(ModelOffset * WorldTransform);
+	SetActorTransform(WorldTransform);				// アクター本体
+	MeshComp->SetRelativeTransform(ModelOffset);	// モデルの向き・スケール
 }

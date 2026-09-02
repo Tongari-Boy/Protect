@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "CoreMinimal.h"
 #include "GameObjectBase.h"
@@ -20,11 +20,11 @@ public:
 	virtual void Init() override;
 	virtual void Update(float DeltaTime) override;
 
-	// “ü—Í‚ÍGameManager‚©‚çó‚¯æ‚é
+	// å…¥åŠ›ã¯GameManagerã‹ã‚‰å—ã‘å–ã‚‹
 	void SetInputAxis(float Horizontal, float Vertical);
 
 private:
-	float MoveSpeed = 0.0f;
+	float MoveSpeed = 100.0f;
 	float InputH = 0.f;
 	float InputV = 0.f;
 };

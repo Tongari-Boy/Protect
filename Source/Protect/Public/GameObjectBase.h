@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
@@ -20,8 +20,8 @@ public:
 	virtual void Init(){}
 	virtual void Update(float DeltaTime) {}
 	
-	FTransform Transform;		// ƒ[ƒ‹ƒhã‚ÌˆÊ’u
-	FTransform ModelTransform;	// ƒ‚ƒfƒ‹ƒIƒtƒZƒbƒg
+	FTransform Transform;		// ãƒ¯ãƒ¼ãƒ«ãƒ‰ä¸Šã®ä½ç½®
+	FTransform ModelTransform;	// ãƒ¢ãƒ‡ãƒ«ã‚ªãƒ•ã‚»ãƒƒãƒˆ
 
 	UPROPERTY()
 	UStaticMeshComponent* MeshComp = nullptr;

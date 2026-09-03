@@ -27,8 +27,13 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* MoveAction;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* FireAction;
+
 	void HandleMove(const FInputActionValue& Value);
 	void HandleMoveCompleted(const FInputActionValue& Value);
+
+	void HandleFire(const FInputActionValue& Value);
 
 	UPROPERTY()
 	AGameManager* GameManager;

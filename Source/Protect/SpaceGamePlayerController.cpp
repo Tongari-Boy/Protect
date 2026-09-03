@@ -36,6 +36,8 @@ void ASpaceGamePlayerController::SetupInputComponent()
 	{
 		EIC->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASpaceGamePlayerController::HandleMove);
 		EIC->BindAction(MoveAction, ETriggerEvent::Completed, this, &ASpaceGamePlayerController::HandleMoveCompleted);
+
+		EIC->BindAction(FireAction, ETriggerEvent::Started, this, &ASpaceGamePlayerController::HandleFire);
 	}
 }
 
@@ -53,5 +55,15 @@ void ASpaceGamePlayerController::HandleMoveCompleted(const FInputActionValue& Va
 	if (GameManager && GameManager->GetPlayerObject())
 	{
 		GameManager->GetPlayerObject()->SetInputAxis(0.f, 0.f);
+	}
+}
+
+void ASpaceGamePlayerController::HandleFire(const FInputActionValue& Value)
+{
+	if (GameManager && GameManager->GetBulletManager())
+	{
+		FVector FirePos = GameManager->GetPlayerObject()->Transform.GetLocation();
+		FVector FireDir = FVector(1.f, 0.f, 0.f) * 30.f;	// 前方向	[feature]プレイヤの向きに合わせるために、進行方向に変更する
+		GameManager->GetBulletManager()->Fire(FirePos, FireDir);
 	}
 }

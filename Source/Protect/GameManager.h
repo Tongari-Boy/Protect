@@ -7,6 +7,8 @@
 #include "PlayerObject.h"
 #include "ShipVisual.h"
 
+#include "BulletManager.h"
+
 #include "GameManager.generated.h"
 
 /**
@@ -21,9 +23,15 @@ public:
 	// コンストラクタ
 	AGameManager();
 
+	/**
+	*	ゲッター
+	*/
+
 	UPlayerObject* GetPlayerObject() const { return Player; }
 
 	AShipVisual* GetPlayerVisual() const { return PlayerVisual; }
+
+	UBulletManager* GetBulletManager() const { return BulletManager; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -40,4 +48,10 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Spawn")
 	TSubclassOf<AShipVisual>PlayerVisualClass;
+
+	UPROPERTY()
+	UBulletManager* BulletManager;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
+	TSubclassOf<ABulletVisual> BulletVisualClass;
 };

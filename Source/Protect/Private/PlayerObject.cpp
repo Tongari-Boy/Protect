@@ -19,7 +19,7 @@ void UPlayerObject::Init()
 	*		[feature]ステージごとに、モデルの向きや大きさが違うので、ここで設定する形に変更
 	*/
 	ModelTransform.SetRotation(FRotator(0.f, 0.f, 0.f).Quaternion());
-	ModelTransform.SetScale3D(FVector(1.f));
+	ModelTransform.SetScale3D(FVector(0.1f));
 }
 
 /**

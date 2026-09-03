@@ -22,6 +22,9 @@ void AGameManager::BeginPlay()
 	{
 		PC->SetViewTarget(PlayerVisual);
 	}
+
+	BulletManager = NewObject<UBulletManager>(this);
+	BulletManager->Init(GetWorld(),BulletVisualClass);
 }
 
 void AGameManager::Tick(float DeltaTime)
@@ -30,6 +33,8 @@ void AGameManager::Tick(float DeltaTime)
 
 	Player->Update(DeltaTime);
 	PlayerVisual->ApplyTransform(Player->Transform, Player->ModelTransform);
+
+	BulletManager->Update(DeltaTime);
 }
 
 void AGameManager::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

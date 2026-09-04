@@ -32,7 +32,7 @@ void UPlayerObject::Update(float DeltaTime)
 	*	常に前進
 	*		[feature]ゲームモードによって操作方法を変更(スピードアップ/ダウンの実装も検討)
 	*/
-	Pos.X += MoveSpeed * DeltaTime;
+	// Pos.X += MoveSpeed * DeltaTime;
 
 	/**
 	*	移動範囲の設定

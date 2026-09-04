@@ -1,5 +1,7 @@
 ﻿#include "GameManager.h"
 
+#include "CollisionSystem.h"
+
 /** コンストラクタ */
 AGameManager::AGameManager()
 {
@@ -28,6 +30,30 @@ void AGameManager::BeginPlay()
 	/** Bulletの初期化 */
 	BulletManager = NewObject<UBulletManager>(this);
 	BulletManager->Init(GetWorld(),BulletVisualClass);
+
+	/** Stageの初期化 */
+	StageManager = NewObject<UStageManager>(this);
+	
+	TArray<FVector> RockPositions =
+	{
+		FVector(1000,0,0),
+		FVector(1500,200,0),
+		FVector(2000,-200,0),
+	};
+
+	StageManager->Init(GetWorld(), RockVisualClass, RockPositions);
+
+	/** イベント関連 */
+	EventBus = NewObject<UEventBus>(this);
+	
+	/**
+	*	イベント発火時のシステム郡
+	*		[feature]スコア加算やサウンド、エフェクトシステムを追加する
+	*/
+	EventBus->OnCollision.AddLambda([](const FCustomCollisionEvent& Event)
+	{
+			UE_LOG(LogTemp, Warning, TEXT("Hit"));
+	});
 }
 
 /**
@@ -47,6 +73,17 @@ void AGameManager::Tick(float DeltaTime)
 	*		Bulletの位置の更新などはBulletManager側で行う
 	*/
 	BulletManager->Update(DeltaTime);
+
+	/** ステージの更新 */
+	StageManager->Update(DeltaTime);
+
+	TArray<FCustomCollisionEvent> Events;
+	FCollisionSystem::CheckBulletVsStage(*BulletManager, *StageManager, Events);
+
+	for (const FCustomCollisionEvent& Event : Events)
+	{
+		EventBus->Publish(Event);
+	}
 }
 
 void AGameManager::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

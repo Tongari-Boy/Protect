@@ -8,6 +8,9 @@
 #include "ShipVisual.h"
 
 #include "BulletManager.h"
+#include "StageManager.h"
+
+#include "EventBus.h"
 
 #include "GameManager.generated.h"
 
@@ -69,4 +72,14 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
 	TSubclassOf<ABulletVisual> BulletVisualClass;
+
+	/** Stage関連 */
+	UPROPERTY()
+	UStageManager* StageManager;
+
+	UPROPERTY()
+	UEventBus* EventBus;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
+	TSubclassOf<ARockVisual> RockVisualClass;
 };

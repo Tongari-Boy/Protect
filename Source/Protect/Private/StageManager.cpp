@@ -16,7 +16,7 @@ void UStageManager::Init(UWorld* World, TSubclassOf<ARockVisual> VisualClass, co
 		/** ステージオブジェクト自体について */
 
 		UStageObject* Obj = NewObject<UStageObject>(this);
-		Obj->Init(Pos, 100.0f);
+		Obj->Init(Pos, 200.0f);
 		StageObjects.Add(Obj);
 
 		/** 見た目について */

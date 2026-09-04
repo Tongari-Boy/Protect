@@ -9,9 +9,7 @@ UPlayerObject::~UPlayerObject()
 {
 }
 
-/**
-* 初期化処理
-*/
+/** 初期化処理 */
 void UPlayerObject::Init()
 {
 	/** 
@@ -53,17 +51,17 @@ void UPlayerObject::Update(float DeltaTime)
 	const float BankSpeed = 120.0f;
 	const float MaxBank = 20.0f;
 
-	if (InputH < 0.f)	// 左の入力
+	if (InputH < 0.f)	/** 左の入力 */
 	{
 		Pos.Y += InputH * MoveSpeed * DeltaTime;
 		Rot.Roll = FMath::Clamp(Rot.Roll - BankSpeed * DeltaTime, -MaxBank, MaxBank);
 	}
-	else if (InputH > 0.f)	// 右の入力
+	else if (InputH > 0.f)	/** 右の入力 */
 	{
 		Pos.Y += InputH * MoveSpeed * DeltaTime;
 		Rot.Roll = FMath::Clamp(Rot.Roll + BankSpeed * DeltaTime, -MaxBank, MaxBank);
 	}
-	else // 入力なし
+	else /** 入力なし */
 	{
 		Rot.Roll *= FMath::Pow(0.01f, DeltaTime);
 		if (FMath::Abs(Rot.Roll) < 0.1f) Rot.Roll = 0.f;
@@ -71,7 +69,6 @@ void UPlayerObject::Update(float DeltaTime)
 
 	Transform.SetLocation(Pos);
 	Transform.SetRotation(Rot.Quaternion());
-
 }
 
 void UPlayerObject::SetInputAxis(float Horizontal, float Vertical)

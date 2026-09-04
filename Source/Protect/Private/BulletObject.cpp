@@ -13,8 +13,8 @@ void UBulletObject::FireInit(const FVector& StartPos, const FVector& Dir)
 {
 	bIsActive = true;
 	Transform.SetLocation(StartPos);
-	Velocity = Dir * 1000.f; // 速度を設定
-	LifeTimer = BulletLifeTime; // 寿命をリセット
+	Velocity = Dir * 1000.f; /** 速度を設定 */
+	LifeTimer = BulletLifeTime; /** 寿命をリセット */
 }
 
 void UBulletObject::Update(float DeltaTime)
@@ -28,6 +28,6 @@ void UBulletObject::Update(float DeltaTime)
 	LifeTimer -= DeltaTime;
 	if (LifeTimer <= 0.f)
 	{
-		bIsActive = false;	// 実際のプール返却は、BulletManager::Updateが行うが、ここでも明示的に無効化する
+		bIsActive = false;	/** 実際のプール返却は、BulletManager::Updateで行うが、ここでも明示的に無効化する */
 	}
 }

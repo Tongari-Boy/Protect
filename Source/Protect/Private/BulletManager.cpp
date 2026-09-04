@@ -23,9 +23,7 @@ void UBulletManager::Init(UWorld* World, TSubclassOf<ABulletVisual> VisualClass)
 
 void UBulletManager::Fire(const FVector& Pos, const FVector& Dir)
 {
-	/**
-	*	空きスロットを線形探索
-	*/
+	/** 空きスロットを線形探索 */
 	for (int32 i = 0; i < MaxBullets; ++i)
 	{
 		if (!BulletPool[i]->bIsActive)
@@ -39,7 +37,7 @@ void UBulletManager::Fire(const FVector& Pos, const FVector& Dir)
 	
 	/**
 	*	空きがなければ何もしない
-	*		[feature]最初に撃った弾から消すようにしたい/論理弾の実装も検討
+	*		[feature]プールの最大値に達したら、最初に撃った弾から消すようにしたい/論理弾の実装も検討
 	*/
 	
 }
@@ -54,9 +52,7 @@ void UBulletManager::Update(float DeltaTime)
 		BulletPool[i]->Update(DeltaTime);
 		VisualPool[i]->ApplyTransform(BulletPool[i]->Transform);
 
-		/**
-		*	このフレームで寿命がきたら、非表示化
-		*/
+		/** このフレームで寿命がきたら、非アクティブ化 */
 		if (!BulletPool[i]->bIsActive)
 		{
 			VisualPool[i]->SetVisualActive(false);

@@ -17,24 +17,16 @@ public:
 	UBulletObject();
 	~UBulletObject();
 
-	/**
-	*	使用中かどうかのフラグ
-	*/
+	/** 使用中かどうかのフラグ */
 	bool bIsActive = false;
 
-	/**
-	*	1発あたりの移動量(方向*速度)
-	*/
+	/** 1発あたりの移動量(方向*速度) */
 	FVector Velocity = FVector::ZeroVector;
 
-	/**
-	*	残り生存時間タイマー
-	*/
+	/** 残り生存時間タイマー */
 	float LifeTimer = 0.f;
 
-	/**
-	*	弾の寿命(秒)
-	*/
+	/** 弾の寿命(秒) */
 	static constexpr float BulletLifeTime = 3.0f;
 
 

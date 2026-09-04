@@ -20,8 +20,8 @@ public:
 	virtual void Init(){}
 	virtual void Update(float DeltaTime) {}
 	
-	FTransform Transform;		// ワールド上の位置
-	FTransform ModelTransform;	// モデルオフセット
+	FTransform Transform;		/** ワールド上の位置 */
+	FTransform ModelTransform;	/** モデルオフセット */
 
 	UPROPERTY()
 	UStaticMeshComponent* MeshComp = nullptr;

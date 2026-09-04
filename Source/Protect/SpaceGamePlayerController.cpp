@@ -63,7 +63,7 @@ void ASpaceGamePlayerController::HandleFire(const FInputActionValue& Value)
 	if (GameManager && GameManager->GetBulletManager())
 	{
 		FVector FirePos = GameManager->GetPlayerObject()->Transform.GetLocation();
-		FVector FireDir = FVector(1.f, 0.f, 0.f) * 30.f;	// 前方向	[feature]プレイヤの向きに合わせるために、進行方向に変更する
+		FVector FireDir = FVector(1.f, 0.f, 0.f) * 30.f;	/** 前方向[feature]プレイヤの向きに合わせるために、進行方向に変更する */
 		GameManager->GetBulletManager()->Fire(FirePos, FireDir);
 	}
 }

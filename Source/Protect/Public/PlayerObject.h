@@ -20,7 +20,7 @@ public:
 	virtual void Init() override;
 	virtual void Update(float DeltaTime) override;
 
-	// 入力はGameManagerから受け取る
+	/** 入力はGameManagerから受け取る */
 	void SetInputAxis(float Horizontal, float Vertical);
 
 private:

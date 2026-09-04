@@ -19,9 +19,7 @@ public:
 	UBulletManager();
 	~UBulletManager();
 
-	/**
-	* 弾の最大数
-	*/
+	/** 弾の最大数 */
 	static const int32 MaxBullets = 30;
 
 	void Init(UWorld* World, TSubclassOf<ABulletVisual> VisualClass);
@@ -29,7 +27,7 @@ public:
 	void Update(float DeltaTime);
 
 private:
-	// UEのGCで回収されないよう、UPROPRETYでプールを保持する
+	/** UEのGCで回収されないよう、UPROPRETYでプールを保持する */
 	UPROPERTY()
 	TArray<UBulletObject*> BulletPool;
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "CoreMinimal.h"
 
@@ -19,15 +19,17 @@ public:
 	UBulletManager();
 	~UBulletManager();
 
-	/** ’e‚ÌÅ‘å” */
+	/** å¼¾ã®æœ€å¤§æ•° */
 	static const int32 MaxBullets = 30;
 
 	void Init(UWorld* World, TSubclassOf<ABulletVisual> VisualClass);
 	void Fire(const FVector& Pos, const FVector& Dir);
 	void Update(float DeltaTime);
+	const TArray<UBulletObject*> GetBulletsPool() const { return BulletPool; };
 
 private:
-	/** UE‚ÌGC‚Å‰ñû‚³‚ê‚È‚¢‚æ‚¤AUPROPRETY‚Åƒv[ƒ‹‚ğ•Û‚·‚é */
+	/** UEã®GCã§å›åã•ã‚Œãªã„ã‚ˆã†ã€UPROPRETYã§ãƒ—ãƒ¼ãƒ«ã‚’ä¿æŒã™ã‚‹ */
+
 	UPROPERTY()
 	TArray<UBulletObject*> BulletPool;
 

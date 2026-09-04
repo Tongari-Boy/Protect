@@ -29,5 +29,6 @@ void UBulletObject::Update(float DeltaTime)
 	if (LifeTimer <= 0.f)
 	{
 		bIsActive = false;	/** 実際のプール返却は、BulletManager::Updateで行うが、ここでも明示的に無効化する */
+		UE_LOG(LogTemp, Warning, TEXT("Bullet IsActive is false because of LifeTime"));
 	}
 }

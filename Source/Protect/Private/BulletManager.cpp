@@ -1,4 +1,4 @@
-#include "BulletManager.h"
+ï»¿#include "BulletManager.h"
 
 
 UBulletManager::UBulletManager()
@@ -23,7 +23,7 @@ void UBulletManager::Init(UWorld* World, TSubclassOf<ABulletVisual> VisualClass)
 
 void UBulletManager::Fire(const FVector& Pos, const FVector& Dir)
 {
-	/** ‹ó‚«ƒXƒƒbƒg‚ğüŒ`’Tõ */
+	/** ç©ºãã‚¹ãƒ­ãƒƒãƒˆã‚’ç·šå½¢æ¢ç´¢ */
 	for (int32 i = 0; i < MaxBullets; ++i)
 	{
 		if (!BulletPool[i]->bIsActive)
@@ -36,8 +36,8 @@ void UBulletManager::Fire(const FVector& Pos, const FVector& Dir)
 	}
 	
 	/**
-	*	‹ó‚«‚ª‚È‚¯‚ê‚Î‰½‚à‚µ‚È‚¢
-	*		[feature]ƒv[ƒ‹‚ÌÅ‘å’l‚É’B‚µ‚½‚çAÅ‰‚ÉŒ‚‚Á‚½’e‚©‚çÁ‚·‚æ‚¤‚É‚µ‚½‚¢/˜_—’e‚ÌÀ‘•‚àŒŸ“¢
+	*	ç©ºããŒãªã‘ã‚Œã°ä½•ã‚‚ã—ãªã„
+	*		[feature]ãƒ—ãƒ¼ãƒ«ã®æœ€å¤§å€¤ã«é”ã—ãŸã‚‰ã€æœ€åˆã«æ’ƒã£ãŸå¼¾ã‹ã‚‰æ¶ˆã™ã‚ˆã†ã«ã—ãŸã„/è«–ç†å¼¾ã®å®Ÿè£…ã‚‚æ¤œè¨
 	*/
 	
 }
@@ -47,15 +47,12 @@ void UBulletManager::Update(float DeltaTime)
 {
 	for (int32 i = 0; i < MaxBullets; ++i)
 	{
-		if (!BulletPool[i]->bIsActive) continue;
-
-		BulletPool[i]->Update(DeltaTime);
-		VisualPool[i]->ApplyTransform(BulletPool[i]->Transform);
-
-		/** ‚±‚ÌƒtƒŒ[ƒ€‚Åõ–½‚ª‚«‚½‚çA”ñƒAƒNƒeƒBƒu‰» */
-		if (!BulletPool[i]->bIsActive)
+		if (BulletPool[i]->bIsActive)
 		{
-			VisualPool[i]->SetVisualActive(false);
+			BulletPool[i]->Update(DeltaTime);
+			VisualPool[i]->ApplyTransform(BulletPool[i]->Transform);
 		}
+
+		VisualPool[i]->SetVisualActive(BulletPool[i]->bIsActive);
 	}
 }

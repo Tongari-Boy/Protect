@@ -32,6 +32,7 @@ void FCollisionSystem::CheckBulletVsStage(
 			if (Dist < Obj->Radius)
 			{
 				Bullet->bIsActive = false;
+				UE_LOG(LogTemp, Warning, TEXT("Bullet IsActive because of Collision"));
 				Obj->bIsHit = true;
 				Obj->bIsActive = false;
 
@@ -42,8 +43,6 @@ void FCollisionSystem::CheckBulletVsStage(
 
 				break;
 			}
-
-
 		}
 	}
 }

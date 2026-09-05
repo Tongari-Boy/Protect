@@ -32,14 +32,13 @@ void UPlayerObject::Update(float DeltaTime)
 	*	常に前進
 	*		[feature]ゲームモードによって操作方法を変更(スピードアップ/ダウンの実装も検討)
 	*/
-	// Pos.X += MoveSpeed * DeltaTime;
+	Pos.X += MoveSpeed * DeltaTime;
 
 	/**
-	*	移動範囲の設定
-	*		[feature]ステージ/場面ごとに、移動範囲は異なるため、随時範囲を受け取る形に変更
+	*	上下移動を範囲内にクランプ
 	*/
-	if (InputV != 0.f && Pos.Z < 100.f && Pos.Z > -100.f)
-		Pos.Z -= InputV * MoveSpeed * DeltaTime;
+	Pos.Z += InputV * MoveSpeed * DeltaTime;
+	Pos.Z = FMath::Clamp(Pos.Z, -100.f, 100.f);
 	
 	/**
 	* 移動に伴う、回転処理
@@ -66,6 +65,11 @@ void UPlayerObject::Update(float DeltaTime)
 		Rot.Roll *= FMath::Pow(0.01f, DeltaTime);
 		if (FMath::Abs(Rot.Roll) < 0.1f) Rot.Roll = 0.f;
 	}
+
+	/**
+	*	左右移動を範囲内にクランプ
+	*/
+	Pos.Y = FMath::Clamp(Pos.Y, -100.f, 100.f);
 
 	Transform.SetLocation(Pos);
 	Transform.SetRotation(Rot.Quaternion());

@@ -11,8 +11,10 @@
 #include "StageManager.h"
 
 #include "EventBus.h"
+#include "SoundSystem.h"
 
 #include "GameManager.generated.h"
+
 
 /**
 *	ゲームマネージャークラス
@@ -74,12 +76,21 @@ private:
 	TSubclassOf<ABulletVisual> BulletVisualClass;
 
 	/** Stage関連 */
+
 	UPROPERTY()
 	UStageManager* StageManager;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
+	TSubclassOf<ARockVisual> RockVisualClass;
+
+	/** イベント関連 */
 
 	UPROPERTY()
 	UEventBus* EventBus;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
-	TSubclassOf<ARockVisual> RockVisualClass;
+	UPROPERTY()
+	USoundSystem* SoundSystem;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Sound")
+	USoundBase* CollisionSound;
 };

@@ -25,10 +25,6 @@ public:
 	*/
 	float Radius = 100.0f;
 
-	/**
-	*	初期化処理
-	*		@param Pos 位置
-	*		@param InRadius
-	*/
+	/** 初期化処理 */
 	void Init(const FVector& Pos, float InRadius);
 };

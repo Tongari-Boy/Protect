@@ -1,14 +1,6 @@
 ﻿#include "PlayerObject.h"
 
 
-UPlayerObject::UPlayerObject()
-{
-}
-
-UPlayerObject::~UPlayerObject()
-{
-}
-
 /** 初期化処理 */
 void UPlayerObject::Init()
 {
@@ -41,10 +33,10 @@ void UPlayerObject::Update(float DeltaTime)
 	Pos.Z = FMath::Clamp(Pos.Z, -100.f, 100.f);
 	
 	/**
-	* 移動に伴う、回転処理
-	*	右入力->右に傾く
-	*	左入力->左に傾く
-	*	入力がない場合->元の角度に戻る
+	*	移動に伴う、回転処理
+	*		右入力->右に傾く
+	*		左入力->左に傾く
+	*		入力がない場合->元の角度に戻る
 	*/
 	FRotator Rot = Transform.Rotator();
 	const float BankSpeed = 120.0f;
@@ -77,7 +69,6 @@ void UPlayerObject::Update(float DeltaTime)
 
 void UPlayerObject::SetInputAxis(float Horizontal, float Vertical)
 {
-	UE_LOG(LogTemp, Warning, TEXT("InputH=%f InputV=%f"), Horizontal, Vertical)
 	InputH = Horizontal;
 	InputV = Vertical;
 }

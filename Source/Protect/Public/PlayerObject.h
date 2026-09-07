@@ -5,6 +5,7 @@
 
 #include "PlayerObject.generated.h"
 
+
 /**
  * 
  */
@@ -14,9 +15,6 @@ class PROTECT_API UPlayerObject : public UGameObjectBase
 	GENERATED_BODY()
 
 public:
-	UPlayerObject();
-	~UPlayerObject();
-
 	virtual void Init() override;
 	virtual void Update(float DeltaTime) override;
 

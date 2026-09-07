@@ -6,6 +6,7 @@
 class UBulletObject;
 class UStageObject;
 
+
 /**
  * 
  */
@@ -15,7 +16,7 @@ struct FCustomCollisionEvent
 	GENERATED_BODY()
 
 	/**
-	*	UPROPERTY()により、イベントがキューに溜まっている間の
+	*	UPROPERTY()での宣言により、イベントがキューに溜まっている間の
 	*	GCによる誤回収を防ぐ
 	*/
 	

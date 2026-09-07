@@ -7,8 +7,9 @@
 
 #include "BulletManager.generated.h"
 
+
 /**
- * 
+ * プレイヤが発射する弾全体の管理を行うクラス
  */
 UCLASS()
 class PROTECT_API UBulletManager : public UObject
@@ -16,23 +17,29 @@ class PROTECT_API UBulletManager : public UObject
 	GENERATED_BODY()
 
 public:
-	UBulletManager();
-	~UBulletManager();
 
 	/** 弾の最大数 */
 	static const int32 MaxBullets = 30;
 
+	/** 初期化処理 */
 	void Init(UWorld* World, TSubclassOf<ABulletVisual> VisualClass);
+	/** 弾発射処理 */
 	void Fire(const FVector& Pos, const FVector& Dir);
+	/** 更新処理 */
 	void Update(float DeltaTime);
+
+	/** プールのゲッター */
 	const TArray<UBulletObject*> GetBulletsPool() const { return BulletPool; };
 
 private:
-	/** UEのGCで回収されないよう、UPROPRETYでプールを保持する */
 
+	/** UEのGCで回収されないよう、UPROPRETYでプールを保持する */
+	
+	/** 弾の論理プール */
 	UPROPERTY()
 	TArray<UBulletObject*> BulletPool;
 
+	/** 弾の物理プール */
 	UPROPERTY()
 	TArray<ABulletVisual*> VisualPool;
 };

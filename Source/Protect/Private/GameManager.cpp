@@ -2,6 +2,7 @@
 
 #include "CollisionSystem.h"
 
+
 /** コンストラクタ */
 AGameManager::AGameManager()
 {
@@ -45,6 +46,11 @@ void AGameManager::BeginPlay()
 
 	/** イベント関連 */
 	EventBus = NewObject<UEventBus>(this);
+
+	SoundSystem = NewObject<USoundSystem>(this);
+	SoundSystem->Init(GetWorld(), CollisionSound);
+
+	EventBus->OnCollision.AddUObject(SoundSystem, &USoundSystem::HandleCollision);
 	
 	/**
 	*	イベント発火時のシステム郡

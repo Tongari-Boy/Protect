@@ -5,6 +5,10 @@
 
 #include "RockVisual.generated.h"
 
+
+/**
+*	岩(ステージオブジェクト)の見た目クラス
+*/
 UCLASS()
 class PROTECT_API ARockVisual : public AActor
 {

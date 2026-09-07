@@ -8,10 +8,10 @@
 *	初期化処理
 *		UObjectではGetWorld()が使えないため、ここでUWorld*を明示的に渡して保持
 */
-void USoundSystem::Init(UWorld* InWorld, USoundBase* InImpactSoubd)
+void USoundSystem::Init(UWorld* InWorld, USoundBase* InImpactSound)
 {
 	World = InWorld;
-	ImpactSound = InImpactSoubd;
+	ImpactSound = InImpactSound;
 }
 
 void USoundSystem::HandleCollision(const FCustomCollisionEvent& Event)

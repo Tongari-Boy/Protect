@@ -50,12 +50,16 @@ void AGameManager::BeginPlay()
 	SoundSystem = NewObject<USoundSystem>(this);
 	SoundSystem->Init(GetWorld(), CollisionSound);
 
-	EventBus->OnCollision.AddUObject(SoundSystem, &USoundSystem::HandleCollision);
-	
+	EffectSystem = NewObject<UEffectSystem>(this);
+	EffectSystem->Init(GetWorld(), CollisionEffect);
+
 	/**
 	*	イベント発火時のシステム郡
 	*		[feature]スコア加算やサウンド、エフェクトシステムを追加する
 	*/
+	EventBus->OnCollision.AddUObject(SoundSystem, &USoundSystem::HandleCollision);
+	EventBus->OnCollision.AddUObject(EffectSystem, &UEffectSystem::HandleCollision);
+	
 	EventBus->OnCollision.AddLambda([](const FCustomCollisionEvent& Event)
 	{
 			UE_LOG(LogTemp, Warning, TEXT("Hit"));

@@ -4,27 +4,27 @@
 
 #include "CustomCollisionEvent.h"
 
-#include "SoundSystem.generated.h"
+#include "EffectSystem.generated.h"
 
+class UNiagaraSystem;
 
 /**
-* 
+*
 */
 UCLASS()
-class PROTECT_API USoundSystem : public UObject
+class PROTECT_API UEffectSystem : public UObject
 {
 	GENERATED_BODY()
 
 public:
-	void Init(UWorld* InWorld, USoundBase* InImpactSound);
+	void Init(UWorld* InWorld, UNiagaraSystem* InImpactEffect);
 
 	void HandleCollision(const FCustomCollisionEvent& Event);
 
 private:
-	UPROPERTY()
-	USoundBase* ImpactSound = nullptr;
+	UNiagaraSystem* ImpactEffect = nullptr;
 
-	/** 
+	/**
 	*	TWeakObjectPtrにすることで、ワールドが破棄され、
 	*	このシステムだけが生き残っても、無効値として扱うことができる
 	*/

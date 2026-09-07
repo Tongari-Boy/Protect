@@ -12,6 +12,7 @@
 
 #include "EventBus.h"
 #include "SoundSystem.h"
+#include "EffectSystem.h"
 
 #include "GameManager.generated.h"
 
@@ -93,4 +94,10 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Sound")
 	USoundBase* CollisionSound;
+
+	UPROPERTY()
+	UEffectSystem* EffectSystem;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Effect")
+	UNiagaraSystem* CollisionEffect;
 };

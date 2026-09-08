@@ -13,8 +13,11 @@
 #include "EventBus.h"
 #include "SoundSystem.h"
 #include "EffectSystem.h"
+#include "ScoreSystem.h"
 
 #include "GameManager.generated.h"
+
+class UScoreWidget;
 
 
 /**
@@ -32,10 +35,9 @@ public:
 	/** ゲッター */
 
 	UPlayerObject* GetPlayerObject() const { return Player; }
-
 	AShipVisual* GetPlayerVisual() const { return PlayerVisual; }
-
 	UBulletManager* GetBulletManager() const { return BulletManager; }
+	UScoreSystem* GetScoreSytem() const { return ScoreSystem; };
 
 protected:
 	/**
@@ -100,4 +102,11 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Effect")
 	UNiagaraSystem* CollisionEffect;
+
+	UPROPERTY()
+	UScoreSystem* ScoreSystem;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UScoreWidget> ScoreWidgetClass;
+
 };

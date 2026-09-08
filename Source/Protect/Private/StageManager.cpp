@@ -1,5 +1,6 @@
 ﻿#include "StageManager.h"
 
+
 /**
 *	初期化処理
 *		@param World

@@ -4,8 +4,9 @@
 #include "StageManager.h"
 #include "CustomCollisionEvent.h"
 
+
 /**
-*	弾とステージオブジェクトの当たり判定
+*	弾とステージオブジェクトの当たり判定の計算
 */
 void FCollisionSystem::CheckBulletVsStage(
 	UBulletManager& Bullets,

@@ -5,8 +5,9 @@
 
 #include "BulletObject.generated.h"
 
+
 /**
- * 
+ * 弾1つ分のロジッククラス
  */
 UCLASS()
 class PROTECT_API UBulletObject:public UGameObjectBase
@@ -14,30 +15,23 @@ class PROTECT_API UBulletObject:public UGameObjectBase
 	GENERATED_BODY()
 
 public:
-	UBulletObject();
-	~UBulletObject();
 
-	/** 使用中かどうかのフラグ */
+	/** 弾がアクティブかどうかのフラグ */
 	bool bIsActive = false;
 
-	/** 1発あたりの移動量(方向*速度) */
+	/** 弾の移動量(方向*速度) */
 	FVector Velocity = FVector::ZeroVector;
 
-	/** 残り生存時間タイマー */
+	/** 弾の残り生存時間タイマー */
 	float LifeTimer = 0.f;
 
 	/** 弾の寿命(秒) */
 	static constexpr float BulletLifeTime = 3.0f;
 
 
-	/**
-	*	発散時の初期化
-	*		ObjectPool::alloc()に呼ばれる
-	* 
-	*	@param StartPos		発射位置
-	*	@param Dir			発射方向
-	*/
+	/** 発射時の初期化 */
 	void FireInit(const FVector& StartPos, const FVector& Dir);
 
+	/** 更新処理 */
 	virtual void Update(float DeltaTime) override;
 };

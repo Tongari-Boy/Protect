@@ -8,8 +8,9 @@
 
 #include "StageManager.generated.h"
 
+
 /**
- * 
+ *	ステージオブジェクト全体を管理するクラス
  */
 UCLASS()
 class PROTECT_API UStageManager : public UObject

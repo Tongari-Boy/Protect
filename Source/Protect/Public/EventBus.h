@@ -6,9 +6,12 @@
 
 #include "EventBus.generated.h"
 
-
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnCollisionEvent, const FCustomCollisionEvent&);
 
+
+/**
+*	イベントバス
+*/
 UCLASS()
 class PROTECT_API UEventBus : public UObject
 {

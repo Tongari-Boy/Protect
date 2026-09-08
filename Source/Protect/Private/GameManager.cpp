@@ -1,6 +1,9 @@
 ﻿#include "GameManager.h"
 
 #include "CollisionSystem.h"
+#include "ScoreWidget.h"
+#include "Blueprint/UserWidget.h"
+
 
 /** コンストラクタ */
 AGameManager::AGameManager()
@@ -45,15 +48,29 @@ void AGameManager::BeginPlay()
 
 	/** イベント関連 */
 	EventBus = NewObject<UEventBus>(this);
-	
+
+	SoundSystem = NewObject<USoundSystem>(this);
+	SoundSystem->Init(GetWorld(), CollisionSound);
+
+	EffectSystem = NewObject<UEffectSystem>(this);
+	EffectSystem->Init(GetWorld(), CollisionEffect);
+
+	ScoreSystem = NewObject<UScoreSystem>(this);
+
 	/**
 	*	イベント発火時のシステム郡
-	*		[feature]スコア加算やサウンド、エフェクトシステムを追加する
 	*/
-	EventBus->OnCollision.AddLambda([](const FCustomCollisionEvent& Event)
+	EventBus->OnCollision.AddUObject(SoundSystem, &USoundSystem::HandleCollision);
+	EventBus->OnCollision.AddUObject(EffectSystem, &UEffectSystem::HandleCollision);
+	EventBus->OnCollision.AddUObject(ScoreSystem, &UScoreSystem::HandleCollision);
+
+	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
 	{
-			UE_LOG(LogTemp, Warning, TEXT("Hit"));
-	});
+		if (UScoreWidget* Widget = CreateWidget<UScoreWidget>(PC, ScoreWidgetClass))
+		{
+			Widget->AddToViewport();
+		}
+	}
 }
 
 /**

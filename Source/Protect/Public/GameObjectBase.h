@@ -5,6 +5,7 @@
 
 #include "GameObjectBase.generated.h"
 
+
 /**
  * 
  */
@@ -14,8 +15,6 @@ class PROTECT_API UGameObjectBase : public UObject
 	GENERATED_BODY()
 
 public:
-	UGameObjectBase();
-	~UGameObjectBase();
 
 	virtual void Init(){}
 	virtual void Update(float DeltaTime) {}

@@ -1,5 +1,7 @@
 ﻿#include "Result/ResultPlayerController.h"
 
+#include "Blueprint/UserWidget.h"
+#include "Result/ResultWidget.h"
 #include <EnhancedInputComponent.h>
 #include <EnhancedInputSubsystems.h>
 #include <Kismet\GameplayStatics.h>
@@ -18,7 +20,12 @@ void AResultPlayerController::BeginPlay()
 		}
 	}
 
+	if (UResultWidget* Widget = CreateWidget<UResultWidget>(this, ResultWidgetClass))
+	{
+		Widget->AddToViewport();
+	}
 }
+
 
 void AResultPlayerController::SetupInputComponent()
 {

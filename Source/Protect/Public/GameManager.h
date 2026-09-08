@@ -60,7 +60,7 @@ protected:
 private:
 	/** ゲームフロー関連 */
 	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
-	float PlayTimeLimit = 60.f;
+	float PlayTimeLimit = 15.f;
 
 	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
 	FName ResultLevelName = "Lvl_Result";

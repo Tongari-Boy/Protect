@@ -113,6 +113,11 @@ void AGameManager::Tick(float DeltaTime)
 		{
 			GI->FinalScore = ScoreSystem ? ScoreSystem->GetScore() : 0;
 		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("GameInstance cast failed! Actual class: %s"),
+				*GetGameInstance()->GetClass()->GetName());
+		}
 
 		UGameplayStatics::OpenLevel(this, ResultLevelName);
 	}

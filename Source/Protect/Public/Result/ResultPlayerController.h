@@ -6,6 +6,9 @@
 
 #include "ResultPlayerController.generated.h"
 
+class RsultWidget;
+
+
 /**
  * 
  */
@@ -28,10 +31,8 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
 	FName TitleLevelName = "Lvl_Title";
 
-	/**
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<class UResultWidget> ResultWidgetClass;
-	*/
 
 	void HandeReturn(const FInputActionValue& Value);
 };

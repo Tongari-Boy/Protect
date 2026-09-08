@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 
 #include "Blueprint/UserWidget.h"
-#include <Components\TextBlock.h>
+#include <Components/TextBlock.h>
 
 #include "ScoreWidget.generated.h"
 

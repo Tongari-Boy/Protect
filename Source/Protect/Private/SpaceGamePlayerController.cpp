@@ -1,7 +1,8 @@
 ﻿#include "SpaceGamePlayerController.h"
+
+#include <EnhancedInputComponent.h>
 #include <EnhancedInputSubsystems.h>
 #include <Kismet/GameplayStatics.h>
-#include <EnhancedInputComponent.h>
 
 
 void ASpaceGamePlayerController::BeginPlay()

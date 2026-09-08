@@ -3,7 +3,8 @@
 #include "CollisionSystem.h"
 #include "ScoreWidget.h"
 #include "Blueprint/UserWidget.h"
-
+#include "ProtectGameInstance.h"
+#include <Kismet\GameplayStatics.h>
 
 /** コンストラクタ */
 AGameManager::AGameManager()
@@ -101,6 +102,21 @@ void AGameManager::Tick(float DeltaTime)
 	{
 		EventBus->Publish(Event);
 	}
+
+	ElapsedTime += DeltaTime;
+
+	/** 画面フロー */
+	if (ElapsedTime >= PlayTimeLimit)
+	{
+		/** GameInstanceのFinalScoreにScoreSytemが持っているスコアを渡す */
+		if (UProtectGameInstance * GI = Cast<UProtectGameInstance>(GetGameInstance()))
+		{
+			GI->FinalScore = ScoreSystem ? ScoreSystem->GetScore() : 0;
+		}
+
+		UGameplayStatics::OpenLevel(this, ResultLevelName);
+	}
+
 }
 
 void AGameManager::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

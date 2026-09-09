@@ -63,12 +63,12 @@ protected:
 private:
 	/** ゲームフロー関連 */
 	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
-	float PlayTimeLimit = 15.f;
+	float PlayTimeLimit = 10.f;
+
+	float ElapsedTime = 0.f;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
 	FName ResultLevelName = "Lvl_Result";
-
-	float ElapsedTime = 0.0f;
 	
 	/** Player関連 */
 

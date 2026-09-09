@@ -17,6 +17,11 @@ void UTimeWidget::ApplyTime(float ElapsedTime)
 	int32 Minutes = TotalSeconds / 60;
 	int32 Seconds = TotalSeconds % 60;
 
-	FString TimeString = FString::Printf(TEXT("%02d:%02d"), Minutes, Seconds);
+	if (Minutes < 0 || Seconds < 0)
+	{
+		Minutes, Seconds = 0;
+	}
+
+	FString TimeString = FString::Printf(TEXT("Time:\n%02d:%02d"), Minutes, Seconds);
 	TimeText->SetText(FText::FromString(TimeString));
 }

@@ -6,6 +6,7 @@
 #include "ProtectGameInstance.h"
 #include <Kismet\GameplayStatics.h>
 
+
 /** コンストラクタ */
 AGameManager::AGameManager()
 {
@@ -71,6 +72,11 @@ void AGameManager::BeginPlay()
 		{
 			Widget->AddToViewport();
 		}
+		TimeWidget = CreateWidget<UTimeWidget>(PC, TimeWidgetClass);
+		if(TimeWidget)
+		{
+			TimeWidget->AddToViewport();
+		}
 	}
 }
 
@@ -104,6 +110,10 @@ void AGameManager::Tick(float DeltaTime)
 	}
 
 	ElapsedTime += DeltaTime;
+	if (TimeWidget)
+	{
+		TimeWidget->ApplyTime(ElapsedTime);
+	}
 
 	/** 画面フロー */
 	if (ElapsedTime >= PlayTimeLimit)

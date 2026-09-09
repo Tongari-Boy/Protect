@@ -58,6 +58,15 @@ protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
 
 private:
+	/** ゲームフロー関連 */
+	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
+	float PlayTimeLimit = 15.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
+	FName ResultLevelName = "Lvl_Result";
+
+	float ElapsedTime = 0.0f;
+	
 	/** Player関連 */
 
 	UPROPERTY()

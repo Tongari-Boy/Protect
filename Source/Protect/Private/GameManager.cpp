@@ -6,6 +6,7 @@
 #include "ProtectGameInstance.h"
 #include <Kismet\GameplayStatics.h>
 
+
 /** コンストラクタ */
 AGameManager::AGameManager()
 {
@@ -67,11 +68,18 @@ void AGameManager::BeginPlay()
 
 	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
 	{
-		if (UScoreWidget* Widget = CreateWidget<UScoreWidget>(PC, ScoreWidgetClass))
+		if (UScoreWidget* ScoreWidget = CreateWidget<UScoreWidget>(PC, ScoreWidgetClass))
 		{
-			Widget->AddToViewport();
+			ScoreWidget->AddToViewport();
+		}
+		TimeWidget = CreateWidget<UTimeWidget>(PC, TimeWidgetClass);
+		if(TimeWidget)
+		{
+			TimeWidget->AddToViewport();
 		}
 	}
+
+	ElapsedTime = PlayTimeLimit;
 }
 
 /**
@@ -103,10 +111,14 @@ void AGameManager::Tick(float DeltaTime)
 		EventBus->Publish(Event);
 	}
 
-	ElapsedTime += DeltaTime;
+	ElapsedTime -= DeltaTime;
+	if (TimeWidget)
+	{
+		TimeWidget->ApplyTime(ElapsedTime);
+	}
 
 	/** 画面フロー */
-	if (ElapsedTime >= PlayTimeLimit)
+	if (ElapsedTime <= 0)
 	{
 		/** GameInstanceのFinalScoreにScoreSytemが持っているスコアを渡す */
 		if (UProtectGameInstance * GI = Cast<UProtectGameInstance>(GetGameInstance()))

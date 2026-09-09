@@ -22,6 +22,7 @@ void UScoreWidget::HandleScoreChanged(int32 NewScore)
 {
 	if (ScoreText)
 	{
-		ScoreText->SetText(FText::AsNumber(NewScore));
+		FString ScoreString = FString::Printf(TEXT("Score:%2d"), NewScore);
+		ScoreText->SetText(FText::FromString(ScoreString));
 	}
 }

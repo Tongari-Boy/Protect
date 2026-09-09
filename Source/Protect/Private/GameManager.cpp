@@ -38,13 +38,17 @@ void AGameManager::BeginPlay()
 
 	/** Stageの初期化 */
 	StageManager = NewObject<UStageManager>(this);
-	
-	TArray<FVector> RockPositions =
+
+	FBox SpawnArea(FVector(500.f, -500.f, 0.f), FVector(6500.f, 500.f,500.f));
+
+	TArray<FVector> RockPositions;
+	for (int32 i = 0; i < 30; ++i)
 	{
-		FVector(1000,0,0),
-		FVector(1500,200,0),
-		FVector(2000,-200,0),
-	};
+		FVector RandomLocation = FMath::RandPointInBox(SpawnArea);
+		RockPositions.Add(RandomLocation);
+	}
+
+
 
 	StageManager->Init(GetWorld(), RockVisualClass, RockPositions);
 

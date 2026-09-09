@@ -22,7 +22,7 @@ public:
 	void SetInputAxis(float Horizontal, float Vertical);
 
 private:
-	float MoveSpeed = 100.0f;
+	float MoveSpeed = 200.0f;
 	float InputH = 0.f;
 	float InputV = 0.f;
 };

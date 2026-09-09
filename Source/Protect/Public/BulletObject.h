@@ -26,7 +26,7 @@ public:
 	float LifeTimer = 0.f;
 
 	/** 弾の寿命(秒) */
-	static constexpr float BulletLifeTime = 3.0f;
+	static constexpr float BulletLifeTime = 1.5f;
 
 
 	/** 発射時の初期化 */

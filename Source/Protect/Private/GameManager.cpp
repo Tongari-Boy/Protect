@@ -3,6 +3,8 @@
 #include "CollisionSystem.h"
 #include "ScoreWidget.h"
 #include "Blueprint/UserWidget.h"
+#include "ProtectGameInstance.h"
+#include <Kismet\GameplayStatics.h>
 
 
 /** コンストラクタ */
@@ -36,13 +38,17 @@ void AGameManager::BeginPlay()
 
 	/** Stageの初期化 */
 	StageManager = NewObject<UStageManager>(this);
-	
-	TArray<FVector> RockPositions =
+
+	FBox SpawnArea(FVector(1000.f, -500.f, 0.f), FVector(6500.f, 500.f,500.f));
+
+	TArray<FVector> RockPositions;
+	for (int32 i = 0; i < 30; ++i)
 	{
-		FVector(1000,0,0),
-		FVector(1500,200,0),
-		FVector(2000,-200,0),
-	};
+		FVector RandomLocation = FMath::RandPointInBox(SpawnArea);
+		RockPositions.Add(RandomLocation);
+	}
+
+
 
 	StageManager->Init(GetWorld(), RockVisualClass, RockPositions);
 
@@ -66,11 +72,18 @@ void AGameManager::BeginPlay()
 
 	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
 	{
-		if (UScoreWidget* Widget = CreateWidget<UScoreWidget>(PC, ScoreWidgetClass))
+		if (UScoreWidget* ScoreWidget = CreateWidget<UScoreWidget>(PC, ScoreWidgetClass))
 		{
-			Widget->AddToViewport();
+			ScoreWidget->AddToViewport();
+		}
+		TimeWidget = CreateWidget<UTimeWidget>(PC, TimeWidgetClass);
+		if(TimeWidget)
+		{
+			TimeWidget->AddToViewport();
 		}
 	}
+
+	ElapsedTime = PlayTimeLimit;
 }
 
 /**
@@ -101,6 +114,25 @@ void AGameManager::Tick(float DeltaTime)
 	{
 		EventBus->Publish(Event);
 	}
+
+	ElapsedTime -= DeltaTime;
+	if (TimeWidget)
+	{
+		TimeWidget->ApplyTime(ElapsedTime);
+	}
+
+	/** 画面フロー */
+	if (ElapsedTime <= 0)
+	{
+		/** GameInstanceのFinalScoreにScoreSytemが持っているスコアを渡す */
+		if (UProtectGameInstance * GI = Cast<UProtectGameInstance>(GetGameInstance()))
+		{
+			GI->FinalScore = ScoreSystem ? ScoreSystem->GetScore() : 0;
+		}
+
+		UGameplayStatics::OpenLevel(this, ResultLevelName);
+	}
+
 }
 
 void AGameManager::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

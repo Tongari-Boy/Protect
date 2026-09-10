@@ -14,6 +14,8 @@
 #include "SoundSystem.h"
 #include "EffectSystem.h"
 #include "ScoreSystem.h"
+#include "TimeWidget.h"
+
 
 #include "GameManager.generated.h"
 
@@ -38,6 +40,7 @@ public:
 	AShipVisual* GetPlayerVisual() const { return PlayerVisual; }
 	UBulletManager* GetBulletManager() const { return BulletManager; }
 	UScoreSystem* GetScoreSytem() const { return ScoreSystem; };
+	float GetElapsedTime() { return ElapsedTime; };
 
 protected:
 	/**
@@ -58,6 +61,15 @@ protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
 
 private:
+	/** ゲームフロー関連 */
+	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
+	float PlayTimeLimit = 30.f;
+
+	float ElapsedTime = 0.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
+	FName ResultLevelName = "Lvl_Result";
+	
 	/** Player関連 */
 
 	UPROPERTY()
@@ -108,5 +120,10 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UScoreWidget> ScoreWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	UTimeWidget* TimeWidget;
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UTimeWidget> TimeWidgetClass;
 
 };

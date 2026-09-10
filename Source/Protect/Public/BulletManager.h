@@ -19,7 +19,7 @@ class PROTECT_API UBulletManager : public UObject
 public:
 
 	/** 弾の最大数 */
-	static const int32 MaxBullets = 30;
+	static const int32 MaxBullets = 15;
 
 	/** 初期化処理 */
 	void Init(UWorld* World, TSubclassOf<ABulletVisual> VisualClass);

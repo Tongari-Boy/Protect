@@ -30,7 +30,7 @@ void UPlayerObject::Update(float DeltaTime)
 	*	上下移動を範囲内にクランプ
 	*/
 	Pos.Z += InputV * MoveSpeed * DeltaTime;
-	Pos.Z = FMath::Clamp(Pos.Z, -100.f, 100.f);
+	Pos.Z = FMath::Clamp(Pos.Z, -50.f, 550.f);
 	
 	/**
 	*	移動に伴う、回転処理
@@ -61,7 +61,7 @@ void UPlayerObject::Update(float DeltaTime)
 	/**
 	*	左右移動を範囲内にクランプ
 	*/
-	Pos.Y = FMath::Clamp(Pos.Y, -100.f, 100.f);
+	Pos.Y = FMath::Clamp(Pos.Y, -550.f, 550.f);
 
 	Transform.SetLocation(Pos);
 	Transform.SetRotation(Rot.Quaternion());

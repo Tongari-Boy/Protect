@@ -73,3 +73,8 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# 3Dモデルなど
+Content/Assets/Effects/*
+Content/Assets/Models/*
+Content/Assets/Sound/*

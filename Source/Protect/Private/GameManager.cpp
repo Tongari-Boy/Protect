@@ -39,7 +39,7 @@ void AGameManager::BeginPlay()
 	/** Stageの初期化 */
 	StageManager = NewObject<UStageManager>(this);
 
-	FBox SpawnArea(FVector(500.f, -500.f, 0.f), FVector(6500.f, 500.f,500.f));
+	FBox SpawnArea(FVector(1000.f, -500.f, 0.f), FVector(6500.f, 500.f,500.f));
 
 	TArray<FVector> RockPositions;
 	for (int32 i = 0; i < 30; ++i)

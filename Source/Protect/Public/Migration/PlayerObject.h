@@ -27,4 +27,7 @@ private:
 	float InputH = 0.f;
 	float InputV = 0.f;
 	float InputSprint = 0.0f;
+
+	float SprintStamina = 100.f;
+	bool bIsSprint = true;
 };

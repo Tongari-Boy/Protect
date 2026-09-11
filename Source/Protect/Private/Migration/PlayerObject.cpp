@@ -20,17 +20,45 @@ void UPlayerObject::Update(float DeltaTime)
 {
 	FVector Pos = Transform.GetLocation();
 
-	if (InputSprint > 0.f)
+	if (InputSprint > 0.f && bIsSprint)
 	{
-		MoveSpeed = 300.f;
+		MoveSpeed = FMath::FInterpTo(MoveSpeed, 1000.f, DeltaTime, 10.0f);
+
+		SprintStamina -= DeltaTime * 20.f;
+		if (SprintStamina <= 0)
+		{
+			SprintStamina = 0.f;
+			bIsSprint = false;
+		}
 	}
-	else if (InputSprint < 0.f)
+	else if (InputSprint < 0.f && bIsSprint)
 	{
-		MoveSpeed = 100.f;
+		MoveSpeed = FMath::FInterpTo(MoveSpeed, 10.f, DeltaTime, 10.0f);
+
+		SprintStamina -= DeltaTime * 20.f;
+		if (SprintStamina <= 0)
+		{
+			SprintStamina = 0.f;
+			bIsSprint = false;
+		}
 	}
 	else
 	{
-		MoveSpeed = 200.f;
+		MoveSpeed = FMath::FInterpTo(MoveSpeed, 200.f, DeltaTime, 5.0f);
+
+		if (SprintStamina >= 100.0f)
+		{
+			SprintStamina = 100.f;
+		}
+		else
+		{
+			SprintStamina += DeltaTime * 15.f;
+		}
+
+		if (SprintStamina >= 100.f && !bIsSprint)
+		{
+			bIsSprint = true;
+		}
 	}
 
 	/**

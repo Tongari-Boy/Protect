@@ -20,6 +20,19 @@ void UPlayerObject::Update(float DeltaTime)
 {
 	FVector Pos = Transform.GetLocation();
 
+	if (InputSprint > 0.f)
+	{
+		MoveSpeed = 300.f;
+	}
+	else if (InputSprint < 0.f)
+	{
+		MoveSpeed = 100.f;
+	}
+	else
+	{
+		MoveSpeed = 200.f;
+	}
+
 	/**
 	*	常に前進
 	*		[feature]ゲームモードによって操作方法を変更(スピードアップ/ダウンの実装も検討)
@@ -71,4 +84,9 @@ void UPlayerObject::SetInputAxis(float Horizontal, float Vertical)
 {
 	InputH = Horizontal;
 	InputV = Vertical;
+}
+
+void UPlayerObject::SetInputSprint(float Sprint)
+{
+	InputSprint = Sprint;
 }

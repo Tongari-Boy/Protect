@@ -39,6 +39,9 @@ void ASpaceGamePlayerController::SetupInputComponent()
 		EIC->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASpaceGamePlayerController::HandleMove);
 		EIC->BindAction(MoveAction, ETriggerEvent::Completed, this, &ASpaceGamePlayerController::HandleMoveCompleted);
 
+		EIC->BindAction(SprintAction, ETriggerEvent::Triggered, this, &ASpaceGamePlayerController::HandleSprint);
+		EIC->BindAction(SprintAction, ETriggerEvent::Completed, this, &ASpaceGamePlayerController::HandleSprintCompleted);
+
 		EIC->BindAction(FireAction, ETriggerEvent::Started, this, &ASpaceGamePlayerController::HandleFire);
 	}
 }
@@ -57,6 +60,23 @@ void ASpaceGamePlayerController::HandleMoveCompleted(const FInputActionValue& Va
 	if (GameManager && GameManager->GetPlayerObject())
 	{
 		GameManager->GetPlayerObject()->SetInputAxis(0.f, 0.f);
+	}
+}
+
+void ASpaceGamePlayerController::HandleSprint(const FInputActionValue& Value)
+{
+	float Sprint = Value.Get<float>();
+	if (GameManager && GameManager->GetPlayerObject())
+	{
+		GameManager->GetPlayerObject()->SetInputSprint(Sprint);
+	}
+}
+
+void ASpaceGamePlayerController::HandleSprintCompleted(const FInputActionValue& Value)
+{
+	if (GameManager && GameManager->GetPlayerObject())
+	{
+		GameManager->GetPlayerObject()->SetInputSprint(0.f);
 	}
 }
 

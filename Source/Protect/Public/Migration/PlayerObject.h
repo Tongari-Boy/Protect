@@ -20,9 +20,11 @@ public:
 
 	/** 入力はGameManagerから受け取る */
 	void SetInputAxis(float Horizontal, float Vertical);
+	void SetInputSprint(float Sprint);
 
 private:
 	float MoveSpeed = 200.0f;
 	float InputH = 0.f;
 	float InputV = 0.f;
+	float InputSprint = 0.0f;
 };

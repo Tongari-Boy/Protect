@@ -31,8 +31,14 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* FireAction;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* SprintAction;
+
 	void HandleMove(const FInputActionValue& Value);
 	void HandleMoveCompleted(const FInputActionValue& Value);
+
+	void HandleSprint(const FInputActionValue& Value);
+	void HandleSprintCompleted(const FInputActionValue& Value);
 
 	void HandleFire(const FInputActionValue& Value);
 

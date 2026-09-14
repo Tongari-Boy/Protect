@@ -98,6 +98,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
 	TSubclassOf<ARockVisual> RockVisualClass;
 
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UPlayerStaminaWidget> StaminaWidgetClass;
+
 	/** イベント関連 */
 
 	UPROPERTY()

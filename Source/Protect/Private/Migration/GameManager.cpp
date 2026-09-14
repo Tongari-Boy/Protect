@@ -30,6 +30,12 @@ void AGameManager::BeginPlay()
 	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
 	{
 		PC->SetViewTarget(PlayerVisual);
+
+		if (UPlayerStaminaWidget* StaminaWidget = CreateWidget<UPlayerStaminaWidget>(PC, StaminaWidgetClass))
+		{
+			StaminaWidget->AddToViewport();
+			Player->SetStaminaWidget(StaminaWidget);
+		}
 	}
 
 	/** Bulletの初期化 */

@@ -10,6 +10,7 @@ void UPlayerObject::Init()
 	*/
 	ModelTransform.SetRotation(FRotator(0.f, 0.f, 0.f).Quaternion());
 	ModelTransform.SetScale3D(FVector(0.1f));
+	SprintStamina = MAXSPRINTSTAMINA;
 }
 
 /**
@@ -25,6 +26,7 @@ void UPlayerObject::Update(float DeltaTime)
 		MoveSpeed = FMath::FInterpTo(MoveSpeed, 1000.f, DeltaTime, 10.0f);
 
 		SprintStamina -= DeltaTime * 20.f;
+
 		if (SprintStamina <= 0)
 		{
 			SprintStamina = 0.f;
@@ -46,19 +48,24 @@ void UPlayerObject::Update(float DeltaTime)
 	{
 		MoveSpeed = FMath::FInterpTo(MoveSpeed, 200.f, DeltaTime, 5.0f);
 
-		if (SprintStamina >= 100.0f)
+		if (SprintStamina >= MAXSPRINTSTAMINA)
 		{
-			SprintStamina = 100.f;
+			SprintStamina = MAXSPRINTSTAMINA;
 		}
 		else
 		{
 			SprintStamina += DeltaTime * 15.f;
 		}
 
-		if (SprintStamina >= 100.f && !bIsSprint)
+		if (SprintStamina >= MAXSPRINTSTAMINA && !bIsSprint)
 		{
 			bIsSprint = true;
 		}
+	}
+
+	if (PlayerStaminaWidget)
+	{
+		PlayerStaminaWidget->SetStaminaPercent(SprintStamina / MAXSPRINTSTAMINA);
 	}
 
 	/**

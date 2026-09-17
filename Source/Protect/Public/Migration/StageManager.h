@@ -18,20 +18,17 @@ class PROTECT_API UStageManager : public UObject
 	GENERATED_BODY()
 
 public:
-	/**
-	*	初期化処理
-	*		@param World
-	*		@param VisualClass		岩の見た目
-	*		@param RockPositions	岩の位置
-	*/
+	/** 初期化処理　*/
 	void Init(UWorld* World, TSubclassOf<ARockVisual> VisualClass, const TArray<FVector>& RockPositions);
 
 	/** 更新処理 */
 	void Update(float DeltaTime);
 
+	/** ステージオブジェクトの論理 */
 	UPROPERTY()
 	TArray<UStageObject*> StageObjects;
 
+	/** ステージオブジェクトの見た目 */
 	UPROPERTY()
 	TArray<ARockVisual*> StageVisuals;
 };

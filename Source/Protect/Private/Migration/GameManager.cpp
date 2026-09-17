@@ -54,9 +54,11 @@ void AGameManager::BeginPlay()
 		RockPositions.Add(RandomLocation);
 	}
 
-
-
 	StageManager->Init(GetWorld(), RockVisualClass, RockPositions);
+
+	/** 敵の初期化 */
+	EnemyManager = NewObject<UEnemyManager>(this);
+	EnemyManager->Init(GetWorld(), EnemyPhases);
 
 	/** イベント関連 */
 	EventBus = NewObject<UEventBus>(this);
@@ -112,6 +114,9 @@ void AGameManager::Tick(float DeltaTime)
 
 	/** ステージの更新 */
 	StageManager->Update(DeltaTime);
+
+	/** 敵の更新 */
+	EnemyManager->Update(DeltaTime, Player->Transform.GetLocation());
 
 	TArray<FCustomCollisionEvent> Events;
 	FCollisionSystem::CheckBulletVsStage(*BulletManager, *StageManager, Events);

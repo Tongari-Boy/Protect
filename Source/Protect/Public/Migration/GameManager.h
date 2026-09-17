@@ -9,6 +9,7 @@
 
 #include "Migration/BulletManager.h"
 #include "Migration/StageManager.h"
+#include "EnemyManager.h"
 
 #include "Migration/EventBus.h"
 #include "Migration/SoundSystem.h"
@@ -100,6 +101,12 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UPlayerStaminaWidget> StaminaWidgetClass;
+
+	/** 敵関連 */
+	UPROPERTY()
+	UEnemyManager* EnemyManager;
+	UPROPERTY(EditDefaultsOnly, Category = "Enemy")
+	TArray<FEnemyPhase> EnemyPhases;
 
 	/** イベント関連 */
 

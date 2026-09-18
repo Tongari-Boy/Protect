@@ -11,6 +11,9 @@ void UPlayerObject::Init()
 	ModelTransform.SetRotation(FRotator(0.f, 0.f, 0.f).Quaternion());
 	ModelTransform.SetScale3D(FVector(0.1f));
 	SprintStamina = MAXSPRINTSTAMINA;
+
+	CurrentHp = MaxHp;
+	InvincibleTimer = 0.f;
 }
 
 /**
@@ -20,6 +23,11 @@ void UPlayerObject::Init()
 void UPlayerObject::Update(float DeltaTime)
 {
 	FVector Pos = Transform.GetLocation();
+
+	if (InvincibleTimer > 0.f)
+	{
+		InvincibleTimer -= DeltaTime;
+	}
 
 	if (InputSprint > 0.f && bIsSprint)
 	{
@@ -124,4 +132,12 @@ void UPlayerObject::SetInputAxis(float Horizontal, float Vertical)
 void UPlayerObject::SetInputSprint(float Sprint)
 {
 	InputSprint = Sprint;
+}
+
+void UPlayerObject::SubtractHp(int32 Amount)
+{
+	CurrentHp = FMath::Max(CurrentHp - Amount, 0);
+	InvincibleTimer = InvincibleDuration;
+
+	UE_LOG(LogTemp, Log, TEXT("Player's CurrentHp is  %d"), CurrentHp);
 }

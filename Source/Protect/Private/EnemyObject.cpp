@@ -20,12 +20,6 @@ void UEnemyObject::Update(float DeltaTime,const FVector& PlayerPos)
 {
 	if (!bIsActive) return;
 
-	if (Transform.GetLocation().X < PlayerPos.X)
-	{
-		bIsActive = false;
-		return;
-	}
-
 	if (CurrentHp <= 0)
 	{
 		bIsActive = false;
@@ -65,8 +59,4 @@ void UEnemyObject::SubtractHp(int Amount)
 	CurrentHp = FMath::Max(CurrentHp - Amount, 0);
 	
 	UE_LOG(LogTemp, Log, TEXT("Enemy's CurrentHp is  %d"), CurrentHp);
-	if (CurrentHp <= 0)
-	{
-		bIsActive = false;
-	}
 }

@@ -2,6 +2,8 @@
 
 #include "Migration/BulletManager.h"
 #include "Migration/StageManager.h"
+
+#include "Migration/PlayerObject.h"
 #include "Migration/CustomCollisionEvent.h"
 
 #include "EnemyManager.h"
@@ -85,6 +87,40 @@ void FCollisionSystem::CheckBulletVsEnemy(
 
 				break;
 			}
+		}
+	}
+}
+
+void FCollisionSystem::CheckPlayerVsEnemy(
+	UPlayerObject& Player,
+	UEnemyManager& Enemies,
+	TArray<FCustomCollisionEvent>& OutEvents)
+{
+	/** プレイヤが無敵時間なら、判定を行わない */
+	if (Player.IsInvincible()) return;
+
+	/** アクティブな敵を探す */
+	for (UEnemyObject* Enemy : Enemies.GetActiveEnemies())
+	{
+		if (!Enemy->bIsActive) continue;
+
+		/** プレイヤと敵の距離計算 */
+		float Dist = FVector::Dist(
+			Player.Transform.GetLocation(),
+			Enemy->Transform.GetLocation()
+		);
+
+		/** 距離がステージオブジェクトの半径以下(衝突した)だったら*/
+		if (Dist < Enemy->Radius + Player.Radius)
+		{
+			Player.SubtractHp(1);
+
+			FCustomCollisionEvent Event;
+			Event.EnemyObject = Enemy;
+			Event.PlayerObject = &Player;
+			OutEvents.Add(Event);
+
+			break;
 		}
 	}
 }

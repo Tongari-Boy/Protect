@@ -7,6 +7,7 @@
 class UBulletObject;
 class UStageObject;
 class UEnemyObject;
+class UPlayerObject;
 
 
 /**
@@ -30,6 +31,8 @@ struct FCustomCollisionEvent
 
 	UPROPERTY()
 	UEnemyObject* EnemyObject = nullptr;
+
+	UPlayerObject* PlayerObject = nullptr;
 
 	/** 敵撃破時のみtrueにする */
 	bool bEnemyKilled = false;

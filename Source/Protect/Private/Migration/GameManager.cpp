@@ -123,6 +123,8 @@ void AGameManager::Tick(float DeltaTime)
 
 	FCollisionSystem::CheckBulletVsEnemy(*BulletManager, *EnemyManager, Events);
 
+	FCollisionSystem::CheckPlayerVsEnemy(*Player, *EnemyManager, Events);
+
 	for (const FCustomCollisionEvent& Event : Events)
 	{
 		EventBus->Publish(Event);
@@ -140,6 +142,18 @@ void AGameManager::Tick(float DeltaTime)
 	{
 		/** GameInstanceのFinalScoreにScoreSytemが持っているスコアを渡す */
 		if (UProtectGameInstance * GI = Cast<UProtectGameInstance>(GetGameInstance()))
+		{
+			GI->FinalScore = ScoreSystem ? ScoreSystem->GetScore() : 0;
+		}
+
+		UGameplayStatics::OpenLevel(this, ResultLevelName);
+	}
+
+	/** デモ:プレイヤのHPが0以下になったら */
+	if (Player->GetCurrentHp() <= 0)
+	{
+		/** GameInstanceのFinalScoreにScoreSytemが持っているスコアを渡す */
+		if (UProtectGameInstance* GI = Cast<UProtectGameInstance>(GetGameInstance()))
 		{
 			GI->FinalScore = ScoreSystem ? ScoreSystem->GetScore() : 0;
 		}

@@ -4,6 +4,7 @@
 
 class UBulletManager;
 class UStageManager;
+class UEnemyManager;
 struct FCustomCollisionEvent;
 
 
@@ -20,6 +21,12 @@ public:
 	static void CheckBulletVsStage(
 		UBulletManager& Bullets,
 		UStageManager& Stage,
+		TArray<FCustomCollisionEvent>& OutEvents
+	);
+
+	static void CheckBulletVsEnemy(
+		UBulletManager& Bullets,
+		UEnemyManager& Enemies,
 		TArray<FCustomCollisionEvent>& OutEvents
 	);
 };

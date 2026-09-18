@@ -22,7 +22,7 @@ void USoundSystem::HandleCollision(const FCustomCollisionEvent& Event)
 	UGameplayStatics::PlaySoundAtLocation(
 		World.Get(),
 		ImpactSound,
-		Event.StageObject->Transform.GetLocation()
+		Event.GetLocation()
 	);
 
 	UE_LOG(LogTemp, Warning, TEXT("Sound"));

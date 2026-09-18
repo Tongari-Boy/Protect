@@ -6,6 +6,7 @@
 
 class UBulletObject;
 class UStageObject;
+class UEnemyObject;
 
 
 /**
@@ -26,4 +27,12 @@ struct FCustomCollisionEvent
 
 	UPROPERTY()
 	UStageObject* StageObject = nullptr;
+
+	UPROPERTY()
+	UEnemyObject* EnemyObject = nullptr;
+
+	/** 敵撃破時のみtrueにする */
+	bool bEnemyKilled = false;
+
+	FVector GetLocation() const;
 };

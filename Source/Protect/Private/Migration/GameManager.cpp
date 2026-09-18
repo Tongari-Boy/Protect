@@ -121,11 +121,14 @@ void AGameManager::Tick(float DeltaTime)
 	TArray<FCustomCollisionEvent> Events;
 	FCollisionSystem::CheckBulletVsStage(*BulletManager, *StageManager, Events);
 
+	FCollisionSystem::CheckBulletVsEnemy(*BulletManager, *EnemyManager, Events);
+
 	for (const FCustomCollisionEvent& Event : Events)
 	{
 		EventBus->Publish(Event);
 	}
 
+	/** ゲームタイム計算/UIへ適用 */
 	ElapsedTime -= DeltaTime;
 	if (TimeWidget)
 	{

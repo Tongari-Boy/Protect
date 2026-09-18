@@ -4,6 +4,7 @@
 #include "Migration/StageManager.h"
 #include "Migration/CustomCollisionEvent.h"
 
+#include "EnemyManager.h"
 
 /**
 *	弾とステージオブジェクトの当たり判定の計算
@@ -33,13 +34,53 @@ void FCollisionSystem::CheckBulletVsStage(
 			if (Dist < Obj->Radius)
 			{
 				Bullet->bIsActive = false;
-				UE_LOG(LogTemp, Warning, TEXT("Bullet IsActive because of Collision"));
+
 				Obj->bIsHit = true;
 				Obj->bIsActive = false;
 
 				FCustomCollisionEvent Event;
 				Event.Bullet = Bullet;
 				Event.StageObject = Obj;
+				OutEvents.Add(Event);
+
+				break;
+			}
+		}
+	}
+}
+
+
+void FCollisionSystem::CheckBulletVsEnemy(
+	UBulletManager& Bullets,
+	UEnemyManager& Enemies,
+	TArray<FCustomCollisionEvent>& OutEvents)
+{
+	/** アクティブな弾を探す */
+	for (UBulletObject* Bullet : Bullets.GetBulletsPool())
+	{
+		if (!Bullet->bIsActive) continue;
+
+		/** アクティブな敵を探す */
+		for (UEnemyObject* Enemy : Enemies.GetActiveEnemies())
+		{
+			if (!Enemy->bIsActive) continue;
+
+			/** 弾と敵の距離計算 */
+			float Dist = FVector::Dist(
+				Bullet->Transform.GetLocation(),
+				Enemy->Transform.GetLocation()
+			);
+
+			/** 距離がステージオブジェクトの半径以下(衝突した)だったら*/
+			if (Dist < Enemy->Radius)
+			{
+				Bullet->bIsActive = false;
+				Enemy->SubtractHp(1);
+
+				FCustomCollisionEvent Event;
+				Event.Bullet = Bullet;
+				Event.EnemyObject = Enemy;
+				Event.bEnemyKilled = (Enemy->GetCurrentHp() <= 0);	/** 基本trueが入る */
 				OutEvents.Add(Event);
 
 				break;

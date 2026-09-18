@@ -3,7 +3,17 @@
 
 void UScoreSystem::HandleCollision(const FCustomCollisionEvent& Event)
 {
-	AddScore(100);
+	if (Event.EnemyObject)
+	{
+		if (Event.bEnemyKilled)
+		{
+			AddScore(100);
+		}
+	}
+	else if (Event.StageObject)
+	{
+		AddScore(100);
+	}
 }
 
 void UScoreSystem::AddScore(int32 Amount)

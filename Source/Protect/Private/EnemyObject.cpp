@@ -63,4 +63,10 @@ void UEnemyObject::SubtractHp(int Amount)
 	*/
 
 	CurrentHp = FMath::Max(CurrentHp - Amount, 0);
+	
+	UE_LOG(LogTemp, Log, TEXT("Enemy's CurrentHp is  %d"), CurrentHp);
+	if (CurrentHp <= 0)
+	{
+		bIsActive = false;
+	}
 }

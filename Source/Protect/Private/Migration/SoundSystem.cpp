@@ -16,7 +16,7 @@ void USoundSystem::Init(UWorld* InWorld, USoundBase* InImpactSound)
 
 void USoundSystem::HandleCollision(const FCustomCollisionEvent& Event)
 {
-	if (!ImpactSound || !World.IsValid() || !Event.StageObject) return;
+	if (!ImpactSound || !World.IsValid()) return;
 
 	/** 衝突した岩の位置でサウンドを鳴らす */
 	UGameplayStatics::PlaySoundAtLocation(

@@ -18,11 +18,11 @@ void UEffectSystem::Init(UWorld* InWorld, UNiagaraSystem* InImpactEffect)
 
 void UEffectSystem::HandleCollision(const FCustomCollisionEvent& Event)
 {
-	if (!ImpactEffect || !World.IsValid() || !Event.StageObject) return;
+	if (!ImpactEffect || !World.IsValid()) return;
 
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(
 		World.Get(),
 		ImpactEffect,
-		Event.StageObject->Transform.GetLocation()
+		Event.GetLocation()
 	);
 }

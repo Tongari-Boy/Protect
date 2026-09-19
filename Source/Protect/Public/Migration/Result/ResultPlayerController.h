@@ -10,7 +10,7 @@ class RsultWidget;
 
 
 /**
- * 
+ *	リザルト画面でのプレイヤコントローラ
  */
 UCLASS()
 class PROTECT_API AResultPlayerController : public APlayerController

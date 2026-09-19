@@ -1,11 +1,20 @@
 ﻿#include "EnemyManager.h"
 
+
 void UEnemyManager::Init(UWorld* InWorld, const TArray<FEnemyPhase>& InPhases)
 {
 	World = InWorld;
 	Phases = InPhases;
 }
 
+/**
+*	更新処理
+*		プレイヤのX座標に応じて、フェーズを開始する
+*			(開始済のものは、無視する)
+* 
+*		敵1体分の更新も行う
+*			
+*/
 void UEnemyManager::Update(float DeltaTime, const FVector& PlayerPos)
 {
 	for (FEnemyPhase& Phase : Phases)

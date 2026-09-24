@@ -7,6 +7,9 @@
 #include <Kismet\GameplayStatics.h>
 
 
+/**
+*	
+*/
 void AResultPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -26,7 +29,9 @@ void AResultPlayerController::BeginPlay()
 	}
 }
 
-
+/**
+* 
+*/
 void AResultPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();

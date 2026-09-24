@@ -64,10 +64,10 @@ void AGameManager::BeginPlay()
 	EventBus = NewObject<UEventBus>(this);
 
 	SoundSystem = NewObject<USoundSystem>(this);
-	SoundSystem->Init(GetWorld(), CollisionSound);
+	SoundSystem->Init(GetWorld(), CollisionSound_Player,CollisionSound_Enemy);
 
 	EffectSystem = NewObject<UEffectSystem>(this);
-	EffectSystem->Init(GetWorld(), CollisionEffect);
+	EffectSystem->Init(GetWorld(),CollisionEffect_Player,CollisionEffect_Enemy);
 
 	ScoreSystem = NewObject<UScoreSystem>(this);
 
@@ -84,6 +84,7 @@ void AGameManager::BeginPlay()
 		{
 			ScoreWidget->AddToViewport();
 		}
+
 		TimeWidget = CreateWidget<UTimeWidget>(PC, TimeWidgetClass);
 		if(TimeWidget)
 		{

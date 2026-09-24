@@ -17,7 +17,6 @@
 #include "Migration/ScoreSystem.h"
 #include "Migration/TimeWidget.h"
 
-
 #include "GameManager.generated.h"
 
 class UScoreWidget;
@@ -25,6 +24,8 @@ class UScoreWidget;
 
 /**
 *	ゲームマネージャークラス
+*		ゲームプレイレベルで用いるクラスの全体管理を行う
+*		プレイレベルでBeginPlayとTick処理を行うのはこのクラスのみ
 */
 UCLASS()
 class PROTECT_API AGameManager : public AActor
@@ -35,7 +36,7 @@ public:
 	/** コンストラクタ */
 	AGameManager();
 
-	/** ゲッター */
+	/** ゲッター群 */
 
 	UPlayerObject* GetPlayerObject() const { return Player; }
 	AShipVisual* GetPlayerVisual() const { return PlayerVisual; }
@@ -46,13 +47,11 @@ public:
 protected:
 	/**
 	*	初期化処理
-	*		BeginPlayはここにしか存在しない
 	*/
 	virtual void BeginPlay() override;
 
 	/**
 	*	更新処理
-	*		Tickはここにしか存在しない
 	*/
 	virtual void Tick(float DeltaTime) override;
 
@@ -105,6 +104,7 @@ private:
 	/** 敵関連 */
 	UPROPERTY()
 	UEnemyManager* EnemyManager;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Enemy")
 	TArray<FEnemyPhase> EnemyPhases;
 
@@ -114,25 +114,32 @@ private:
 	UEventBus* EventBus;
 
 	UPROPERTY()
-	USoundSystem* SoundSystem;
+	USoundSystem* SoundSystem;	// サウンドシステム
 
 	UPROPERTY(EditDefaultsOnly, Category = "Sound")
-	USoundBase* CollisionSound;
+	USoundBase* CollisionSound_Player;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Sound")
+	USoundBase* CollisionSound_Enemy;
 
 	UPROPERTY()
-	UEffectSystem* EffectSystem;
+	UEffectSystem* EffectSystem;	// エフェクトシステム
 
 	UPROPERTY(EditDefaultsOnly, Category = "Effect")
-	UNiagaraSystem* CollisionEffect;
+	UNiagaraSystem* CollisionEffect_Player;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Effect")
+	UNiagaraSystem* CollisionEffect_Enemy;
 
 	UPROPERTY()
-	UScoreSystem* ScoreSystem;
+	UScoreSystem* ScoreSystem;	// スコアシステム
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UScoreWidget> ScoreWidgetClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
-	UTimeWidget* TimeWidget;
+	UTimeWidget* TimeWidget;	// 残り時間表示処理
+
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UTimeWidget> TimeWidgetClass;
 

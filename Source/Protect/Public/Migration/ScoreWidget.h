@@ -1,12 +1,15 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-
 #include "Blueprint/UserWidget.h"
 #include <Components/TextBlock.h>
 
 #include "ScoreWidget.generated.h"
 
+
+/**
+*	スコアウィジェット
+*/
 UCLASS()
 class PROTECT_API UScoreWidget : public UUserWidget
 {

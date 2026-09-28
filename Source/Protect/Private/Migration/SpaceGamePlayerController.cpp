@@ -9,9 +9,8 @@ void ASpaceGamePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	/**
-	*	マッピングコンテキストの追加
-	*/
+	
+	// マッピングコンテキストの追加
 	if (ULocalPlayer* LP = GetLocalPlayer())
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem =

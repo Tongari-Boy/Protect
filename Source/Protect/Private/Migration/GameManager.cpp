@@ -36,6 +36,11 @@ void AGameManager::BeginPlay()
 			StaminaWidget->AddToViewport();
 			Player->SetStaminaWidget(StaminaWidget);
 		}
+		if (UPlayerHPWidget* HPWidget = CreateWidget<UPlayerHPWidget>(PC, HPWidgetClass))
+		{
+			HPWidget->AddToViewport();
+			Player->SetHPWidget(HPWidget);
+		}
 	}
 
 	/** Bulletの初期化 */
@@ -54,18 +59,20 @@ void AGameManager::BeginPlay()
 		RockPositions.Add(RandomLocation);
 	}
 
-
-
 	StageManager->Init(GetWorld(), RockVisualClass, RockPositions);
+
+	/** 敵の初期化 */
+	EnemyManager = NewObject<UEnemyManager>(this);
+	EnemyManager->Init(GetWorld(), EnemyPhases);
 
 	/** イベント関連 */
 	EventBus = NewObject<UEventBus>(this);
 
 	SoundSystem = NewObject<USoundSystem>(this);
-	SoundSystem->Init(GetWorld(), CollisionSound);
+	SoundSystem->Init(GetWorld(), CollisionSound_Player,CollisionSound_Enemy);
 
 	EffectSystem = NewObject<UEffectSystem>(this);
-	EffectSystem->Init(GetWorld(), CollisionEffect);
+	EffectSystem->Init(GetWorld(),CollisionEffect_Player,CollisionEffect_Enemy);
 
 	ScoreSystem = NewObject<UScoreSystem>(this);
 
@@ -82,6 +89,7 @@ void AGameManager::BeginPlay()
 		{
 			ScoreWidget->AddToViewport();
 		}
+
 		TimeWidget = CreateWidget<UTimeWidget>(PC, TimeWidgetClass);
 		if(TimeWidget)
 		{
@@ -113,14 +121,22 @@ void AGameManager::Tick(float DeltaTime)
 	/** ステージの更新 */
 	StageManager->Update(DeltaTime);
 
+	/** 敵の更新 */
+	EnemyManager->Update(DeltaTime, Player->Transform.GetLocation());
+
 	TArray<FCustomCollisionEvent> Events;
 	FCollisionSystem::CheckBulletVsStage(*BulletManager, *StageManager, Events);
+
+	FCollisionSystem::CheckBulletVsEnemy(*BulletManager, *EnemyManager, Events);
+
+	FCollisionSystem::CheckPlayerVsEnemy(*Player, *EnemyManager, Events);
 
 	for (const FCustomCollisionEvent& Event : Events)
 	{
 		EventBus->Publish(Event);
 	}
 
+	/** ゲームタイム計算/UIへ適用 */
 	ElapsedTime -= DeltaTime;
 	if (TimeWidget)
 	{
@@ -132,6 +148,18 @@ void AGameManager::Tick(float DeltaTime)
 	{
 		/** GameInstanceのFinalScoreにScoreSytemが持っているスコアを渡す */
 		if (UProtectGameInstance * GI = Cast<UProtectGameInstance>(GetGameInstance()))
+		{
+			GI->FinalScore = ScoreSystem ? ScoreSystem->GetScore() : 0;
+		}
+
+		UGameplayStatics::OpenLevel(this, ResultLevelName);
+	}
+
+	/** デモ:プレイヤのHPが0以下になったら */
+	if (Player->GetCurrentHp() <= 0)
+	{
+		// GameInstanceのFinalScoreにScoreSytemが持っているスコアを渡す
+		if (UProtectGameInstance* GI = Cast<UProtectGameInstance>(GetGameInstance()))
 		{
 			GI->FinalScore = ScoreSystem ? ScoreSystem->GetScore() : 0;
 		}

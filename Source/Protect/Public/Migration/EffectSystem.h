@@ -1,12 +1,12 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-
 #include "Migration/CustomCollisionEvent.h"
 
 #include "EffectSystem.generated.h"
 
 class UNiagaraSystem;
+
 
 /**
 *	エフェクトシステム

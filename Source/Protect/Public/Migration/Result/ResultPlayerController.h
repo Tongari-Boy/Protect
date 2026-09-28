@@ -34,5 +34,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<class UResultWidget> ResultWidgetClass;
 
-	void HandeReturn(const FInputActionValue& Value);
+	// タイトルレベルを開く
+	void HandleReturn(const FInputActionValue& Value);
 };

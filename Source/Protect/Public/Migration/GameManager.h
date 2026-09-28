@@ -81,6 +81,11 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Spawn")
 	TSubclassOf<AShipVisual> PlayerVisualClass;
 
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UPlayerStaminaWidget> StaminaWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly,Category="UI")
+	TSubclassOf<UPlayerHPWidget> HPWidgetClass;
 
 	/** Bullet関連 */
 
@@ -97,9 +102,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
 	TSubclassOf<ARockVisual> RockVisualClass;
-
-	UPROPERTY(EditDefaultsOnly, Category = "UI")
-	TSubclassOf<UPlayerStaminaWidget> StaminaWidgetClass;
 
 	/** 敵関連 */
 	UPROPERTY()

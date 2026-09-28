@@ -5,7 +5,6 @@
 #include "Migration/StageObject.h"
 
 
-
 /**
 *	初期化処理
 *		UObjectではデフォルトでGetWorld()を持たないため、
@@ -42,6 +41,7 @@ void UEffectSystem::HandleCollision(const FCustomCollisionEvent& Event)
 	{
 		EffectToSpawn = StageEffect;
 	}
+
 
 	if (!EffectToSpawn) return;
 

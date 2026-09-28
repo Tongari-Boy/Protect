@@ -41,12 +41,12 @@ void USoundSystem::HandleCollision(const FCustomCollisionEvent& Event)
 		SoundToSpawn = StageSound;
 	}
 
+	if (!SoundToSpawn)return;
+
 	/** 衝突した岩の位置でサウンドを鳴らす */
 	UGameplayStatics::PlaySoundAtLocation(
 		World.Get(),
 		SoundToSpawn,
 		Event.GetLocation()
 	);
-
-	UE_LOG(LogTemp, Warning, TEXT("Sound"));
 }

@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-
 #include "CustomCollisionEvent.h"
 
 #include "SoundSystem.generated.h"

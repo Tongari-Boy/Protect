@@ -36,6 +36,11 @@ void AGameManager::BeginPlay()
 			StaminaWidget->AddToViewport();
 			Player->SetStaminaWidget(StaminaWidget);
 		}
+		if (UPlayerHPWidget* HPWidget = CreateWidget<UPlayerHPWidget>(PC, HPWidgetClass))
+		{
+			HPWidget->AddToViewport();
+			Player->SetHPWidget(HPWidget);
+		}
 	}
 
 	/** Bulletの初期化 */
@@ -153,7 +158,7 @@ void AGameManager::Tick(float DeltaTime)
 	/** デモ:プレイヤのHPが0以下になったら */
 	if (Player->GetCurrentHp() <= 0)
 	{
-		/** GameInstanceのFinalScoreにScoreSytemが持っているスコアを渡す */
+		// GameInstanceのFinalScoreにScoreSytemが持っているスコアを渡す
 		if (UProtectGameInstance* GI = Cast<UProtectGameInstance>(GetGameInstance()))
 		{
 			GI->FinalScore = ScoreSystem ? ScoreSystem->GetScore() : 0;

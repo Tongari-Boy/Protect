@@ -14,6 +14,11 @@ void UPlayerObject::Init()
 
 	CurrentHp = MaxHp;
 	InvincibleTimer = 0.f;
+
+	if (PlayerHPWidget)
+	{
+		PlayerHPWidget->SetHPPercentToBar(CurrentHp / MaxHp);
+	}
 }
 
 /**
@@ -139,5 +144,8 @@ void UPlayerObject::SubtractHp(int32 Amount)
 	CurrentHp = FMath::Max(CurrentHp - Amount, 0);
 	InvincibleTimer = InvincibleDuration;
 
-	UE_LOG(LogTemp, Log, TEXT("Player's CurrentHp is  %d"), CurrentHp);
+	if (PlayerHPWidget)
+	{
+		PlayerHPWidget->SetHPPercentToBar((float)CurrentHp / MaxHp);
+	}
 }

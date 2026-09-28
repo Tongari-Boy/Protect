@@ -29,5 +29,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
 	FName PlayLevelName = "Lvl_Play";
 
+	// プレイレベルを開く
 	void HandleStart(const FInputActionValue& Value);
 };

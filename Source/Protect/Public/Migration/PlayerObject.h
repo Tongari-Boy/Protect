@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameObjectBase.h"
 #include "PlayerStaminaWidget.h"
+#include "PlayerHPWidget.h"
 
 #include "PlayerObject.generated.h"
 
@@ -26,6 +27,7 @@ public:
 	void SetInputSprint(float Sprint);
 
 	void SetStaminaWidget(UPlayerStaminaWidget* Widget) { PlayerStaminaWidget = Widget; };
+	void SetHPWidget(UPlayerHPWidget* Widget) { PlayerHPWidget = Widget; };
 
 	void SubtractHp(int32 Amount);
 	int32 GetCurrentHp() const { return CurrentHp; }
@@ -44,8 +46,9 @@ private:
 	bool bIsSprint = true;
 	UPlayerStaminaWidget* PlayerStaminaWidget;
 
-	int32 MaxHp = 2;
-	int32 CurrentHp = 2;
+	int32 MaxHp = 10;
+	int32 CurrentHp = 10;
 	float InvincibleTimer = 0.f;
-	const float InvincibleDuration = 1.0f;	/** 無敵時間 */
+	const float InvincibleDuration = 1.0f;	// 無敵時間
+	UPlayerHPWidget* PlayerHPWidget;
 };

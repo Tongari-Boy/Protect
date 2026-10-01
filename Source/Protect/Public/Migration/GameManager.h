@@ -36,13 +36,13 @@ public:
 	/** コンストラクタ */
 	AGameManager();
 
-	/** ゲッター群 */
+	/** ゲッター・セッター群 */
 
 	UPlayerObject* GetPlayerObject() const { return Player; }
 	AShipVisual* GetPlayerVisual() const { return PlayerVisual; }
 	UBulletManager* GetBulletManager() const { return BulletManager; }
-	UScoreSystem* GetScoreSytem() const { return ScoreSystem; };
-	float GetElapsedTime() { return ElapsedTime; };
+	UScoreSystem* GetScoreSytem() const { return ScoreSystem; }
+	float GetElapsedTime() { return ElapsedTime; }
 
 protected:
 	/**

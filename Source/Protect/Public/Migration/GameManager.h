@@ -3,7 +3,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 
-#include "Migration/GameObjectBase.h"
 #include "Migration/PlayerObject.h"
 #include "Migration/ShipVisual.h"
 #include "PlayerCamera.h"
@@ -42,8 +41,8 @@ public:
 	UPlayerObject* GetPlayerObject() const { return Player; }
 	AShipVisual* GetPlayerVisual() const { return PlayerVisual; }
 	UBulletManager* GetBulletManager() const { return BulletManager; }
-	UScoreSystem* GetScoreSytem() const { return ScoreSystem; }
-	float GetElapsedTime() { return ElapsedTime; }
+	UScoreSystem* GetScoreSystem() const { return ScoreSystem; }
+	float GetElapsedTime () const { return ElapsedTime; }
 
 protected:
 	/**
@@ -51,6 +50,7 @@ protected:
 	*/
 	virtual void BeginPlay() override;
 
+public:
 	/**
 	*	更新処理
 	*/
@@ -152,5 +152,4 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UTimeWidget> TimeWidgetClass;
-
 };

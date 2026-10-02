@@ -8,14 +8,20 @@ class AEnemyVisual;
 
 
 /**
- *	敵1体分の配置情報など
+ *	敵1体分の情報
+ *		敵の種類
+ *		敵の見た目
+ *		発生する場所
+ *		半径
+ *		体力
+ *	をエディタ上で設定できるようにする
  */
 USTRUCT(BlueprintType)
 struct FEnemySpawnInfo
 {
 	GENERATED_BODY()
 
-	/** EnemyObjectにすることで、後の派生敵を指定できるようにする */
+	// EnemyObjectにすることで、後の派生敵を指定できるようにする
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	TSubclassOf<UEnemyObject> EnemyClass;
 
@@ -34,6 +40,9 @@ struct FEnemySpawnInfo
 
 /**
 *	1フェーズの敵のまとまり
+*		発生のトリガーとなるX座標
+* 		敵の配置情報の配列
+*	をエディタ上で設定する
 */
 USTRUCT(BlueprintType)
 struct FEnemyPhase
@@ -46,9 +55,6 @@ struct FEnemyPhase
 	UPROPERTY(EditAnywhere, Category = "Phase")
 	TArray<FEnemySpawnInfo> Enemies;
 
-	/**
-	*	フェーズ開始フラグ
-	*		重複防止用
-	*/
+	// フェーズ開始フラグ(重複防止用)
 	bool bTriggered = false;
 };

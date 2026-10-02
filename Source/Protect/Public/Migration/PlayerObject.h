@@ -33,6 +33,7 @@ public:
 	int32 GetCurrentHp() const { return CurrentHp; }
 	int32 GetMaxHp() const { return MaxHp; }
 	bool IsInvincible() const { return InvincibleTimer > 0.f; }
+	float GetCurrentSpeed() const { return MoveSpeed; }
 	float Radius = 200.0f;	/** プレイヤの当たり判定に用いる半径 */
 
 private:

@@ -13,13 +13,14 @@ void UEnemyObject::Init(const FVector& Pos, float InRadius, int32 Hp)
 }
 
 /**
-*	敵のAI機能
+*	敵のAI処理
 *		継承先でそれぞれ作成する
 */
-void UEnemyObject::Update(float DeltaTime,const FVector& PlayerPos)
+void UEnemyObject::Update(float DeltaTime,const FVector& PlayerPos,const FVector& PlayerCameraPos)
 {
 	if (!bIsActive) return;
 
+	// HPが0以下になったら非アクティブにする
 	if (CurrentHp <= 0)
 	{
 		bIsActive = false;
@@ -29,34 +30,11 @@ void UEnemyObject::Update(float DeltaTime,const FVector& PlayerPos)
 
 void UEnemyObject::AddHp(int32 Amount)
 {
-	/*
-	if (CurrentHp + Amount > MaxHp)
-	{
-		CurrentHp = MaxHp;
-	}
-	else
-	{
-		CurrentHp += Amount;
-	}
-	*/
-
 	CurrentHp = FMath::Min(CurrentHp + Amount, MaxHp);
 }
 
 void UEnemyObject::SubtractHp(int Amount)
 {
-	/*
-	if (CurrentHp - Amount > 0)
-	{
-		CurrentHp -= Amount;
-	}
-	else
-	{
-		CurrentHp = 0;
-	}
-	*/
-
-	CurrentHp = FMath::Max(CurrentHp - Amount, 0);
-	
+	CurrentHp = FMath::Max(CurrentHp - Amount, 0);	
 	UE_LOG(LogTemp, Log, TEXT("Enemy's CurrentHp is  %d"), CurrentHp);
 }

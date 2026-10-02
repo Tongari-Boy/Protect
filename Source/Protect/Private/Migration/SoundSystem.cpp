@@ -2,6 +2,7 @@
 
 #include "Kismet/GameplayStatics.h"
 #include "Migration/StageObject.h"
+#include "Migration/GameManager.h"
 
 
 /**
@@ -23,6 +24,18 @@ void USoundSystem::HandleCollision(const FCustomCollisionEvent& Event)
 {
 	if (!World.IsValid()) return;
 
+	float CurrentTime = World->GetTimeSeconds();
+	if (CurrentTime - LastHitTime > ComboResetTime)
+	{
+		// 間隔が空いていたらピッチをリセット
+		CurrentPitch = BasePitch;
+	}
+	else
+	{
+		// 連続ヒット:ピッチを上げる
+		CurrentPitch = FMath::Min(CurrentPitch + PitchStep, MaxPitch);
+	}
+
 	USoundBase* SoundToSpawn = nullptr;
 
 	/** 
@@ -42,11 +55,16 @@ void USoundSystem::HandleCollision(const FCustomCollisionEvent& Event)
 	}
 
 	if (!SoundToSpawn)return;
+	
+	LastHitTime = CurrentTime;
 
-	/** 衝突した岩の位置でサウンドを鳴らす */
+	/** 衝突したオブジェクトの位置でサウンドを鳴らす */
 	UGameplayStatics::PlaySoundAtLocation(
 		World.Get(),
 		SoundToSpawn,
-		Event.GetLocation()
+		Event.GetLocation(),
+		FRotator::ZeroRotator,
+		1.0f,			// サウンドボリューム
+		CurrentPitch	// サウンドピッチ
 	);
 }

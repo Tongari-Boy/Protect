@@ -6,6 +6,7 @@
 #include "Migration/GameObjectBase.h"
 #include "Migration/PlayerObject.h"
 #include "Migration/ShipVisual.h"
+#include "PlayerCamera.h"
 
 #include "Migration/BulletManager.h"
 #include "Migration/StageManager.h"
@@ -36,13 +37,13 @@ public:
 	/** コンストラクタ */
 	AGameManager();
 
-	/** ゲッター群 */
+	/** ゲッター・セッター群 */
 
 	UPlayerObject* GetPlayerObject() const { return Player; }
 	AShipVisual* GetPlayerVisual() const { return PlayerVisual; }
 	UBulletManager* GetBulletManager() const { return BulletManager; }
-	UScoreSystem* GetScoreSytem() const { return ScoreSystem; };
-	float GetElapsedTime() { return ElapsedTime; };
+	UScoreSystem* GetScoreSytem() const { return ScoreSystem; }
+	float GetElapsedTime() { return ElapsedTime; }
 
 protected:
 	/**
@@ -81,6 +82,12 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Spawn")
 	TSubclassOf<AShipVisual> PlayerVisualClass;
 
+	UPROPERTY()
+	APlayerCamera* PlayerCamera;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
+	TSubclassOf<APlayerCamera>PlayerCameraClass;
+
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UPlayerStaminaWidget> StaminaWidgetClass;
 
@@ -104,6 +111,7 @@ private:
 	TSubclassOf<ARockVisual> RockVisualClass;
 
 	/** 敵関連 */
+
 	UPROPERTY()
 	UEnemyManager* EnemyManager;
 

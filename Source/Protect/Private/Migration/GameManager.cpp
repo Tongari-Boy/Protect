@@ -26,10 +26,11 @@ void AGameManager::BeginPlay()
 	Player->Init();
 
 	PlayerVisual = GetWorld()->SpawnActor<AShipVisual>(PlayerVisualClass);
+	PlayerCamera = GetWorld()->SpawnActor<APlayerCamera>(PlayerCameraClass);
 
 	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
 	{
-		PC->SetViewTarget(PlayerVisual);
+		PC->SetViewTarget(PlayerCamera);
 
 		if (UPlayerStaminaWidget* StaminaWidget = CreateWidget<UPlayerStaminaWidget>(PC, StaminaWidgetClass))
 		{
@@ -111,6 +112,7 @@ void AGameManager::Tick(float DeltaTime)
 	/** Playerの更新 */
 	Player->Update(DeltaTime);
 	PlayerVisual->ApplyTransform(Player->Transform, Player->ModelTransform);
+	PlayerCamera->Update(DeltaTime, Player->Transform, Player->GetCurrentSpeed());
 
 	/**
 	*	Bulletの更新
@@ -122,7 +124,7 @@ void AGameManager::Tick(float DeltaTime)
 	StageManager->Update(DeltaTime);
 
 	/** 敵の更新 */
-	EnemyManager->Update(DeltaTime, Player->Transform.GetLocation());
+	EnemyManager->Update(DeltaTime, Player->Transform.GetLocation(),PlayerCamera->GetActorLocation());
 
 	TArray<FCustomCollisionEvent> Events;
 	FCollisionSystem::CheckBulletVsStage(*BulletManager, *StageManager, Events);

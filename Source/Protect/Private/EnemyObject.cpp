@@ -16,7 +16,7 @@ void UEnemyObject::Init(const FVector& Pos, float InRadius, int32 Hp)
 *	敵のAI機能
 *		継承先でそれぞれ作成する
 */
-void UEnemyObject::Update(float DeltaTime,const FVector& PlayerPos)
+void UEnemyObject::Update(float DeltaTime,const FVector& PlayerPos,const FVector& PlayerCameraPos)
 {
 	if (!bIsActive) return;
 

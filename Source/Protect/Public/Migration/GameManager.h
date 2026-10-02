@@ -6,6 +6,7 @@
 #include "Migration/GameObjectBase.h"
 #include "Migration/PlayerObject.h"
 #include "Migration/ShipVisual.h"
+#include "PlayerCamera.h"
 
 #include "Migration/BulletManager.h"
 #include "Migration/StageManager.h"
@@ -80,6 +81,12 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Spawn")
 	TSubclassOf<AShipVisual> PlayerVisualClass;
+
+	UPROPERTY()
+	APlayerCamera* PlayerCamera;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
+	TSubclassOf<APlayerCamera>PlayerCameraClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UPlayerStaminaWidget> StaminaWidgetClass;

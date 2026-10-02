@@ -10,15 +10,6 @@ AShipVisual::AShipVisual()
 
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	MeshComp->SetupAttachment(RootScene);
-
-	/**
-	*	カメラの設定
-	*		[featrue]カメラとプレイヤを分けて作成する
-	*/
-	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
-	CameraComp->SetupAttachment(RootScene);
-	CameraComp->SetRelativeLocation(FVector(-300.0f, 0.f, 100.f));	 /** 自機の後ろかつ上 */
-	CameraComp->SetRelativeRotation(FRotator(-10.f, 0.f, 0.f));     /** 見下ろし */
 }
 
 void AShipVisual::ApplyTransform(const FTransform& WorldTransform, const FTransform& ModelOffset)

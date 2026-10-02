@@ -36,6 +36,12 @@ void UEffectSystem::HandleCollision(const FCustomCollisionEvent& Event)
 	if (Event.StageObject == nullptr)
 	{
 		EffectToSpawn = EnemyEffect;
+
+		// 敵はHPが0になっていないならエフェクトを発生させない
+		if (!Event.bEnemyKilled)
+		{
+			return;
+		}
 	}
 	else
 	{

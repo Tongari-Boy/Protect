@@ -6,14 +6,21 @@
 
 #include "PlayerCamera.generated.h"
 
+
+/**
+ *	プレイヤー追従カメラクラス
+ *		プレイヤーの位置に応じてカメラを追従させる
+ */
 UCLASS()
 class PROTECT_API APlayerCamera : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
+	// コンストラクタ
 	APlayerCamera();
 
+	// 更新処理
 	void Update(float DeltaTime, const FTransform& PlayerTransform, float PlayerSpeed);
 
 private:

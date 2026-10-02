@@ -9,8 +9,10 @@
 
 #include "EnemyManager.generated.h"
 
+
 /**
- * 
+ * 敵全体の管理クラス
+ *	フェーズ、敵の生成、更新、削除などを管理する
  */
 UCLASS()
 class PROTECT_API UEnemyManager : public UObject

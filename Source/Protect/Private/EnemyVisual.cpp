@@ -1,6 +1,7 @@
 ﻿#include "EnemyVisual.h"
 
 
+// コンストラクタ
 AEnemyVisual::AEnemyVisual()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -13,7 +14,7 @@ AEnemyVisual::AEnemyVisual()
 	SetActorEnableCollision(false);
 }
 
-
+// Transformの適用(更新処理)
 void AEnemyVisual::ApplyTransform(const FTransform& WorldTransform)
 {
 	SetActorTransform(WorldTransform);

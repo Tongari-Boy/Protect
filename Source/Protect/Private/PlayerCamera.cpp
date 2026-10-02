@@ -1,5 +1,10 @@
 ﻿#include "PlayerCamera.h"
 
+
+/**
+* コンストラクタ
+*	カメラコンポーネントを作成し、初期値を設定する
+*/
 APlayerCamera::APlayerCamera()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -9,6 +14,10 @@ APlayerCamera::APlayerCamera()
 	CurrentFOV = BaseFOV;
 }
 
+/**
+* 更新処理
+*	プレイヤの位置・速度に応じてカメラの位置・注視点・FOVを更新する
+*/
 void APlayerCamera::Update(float DeltaTime, const FTransform& PlayerTransform, float PlayerSpeed)
 {
 	FVector PlayerPos = PlayerTransform.GetLocation();

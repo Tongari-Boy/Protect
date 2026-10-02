@@ -111,6 +111,7 @@ private:
 	TSubclassOf<ARockVisual> RockVisualClass;
 
 	/** 敵関連 */
+
 	UPROPERTY()
 	UEnemyManager* EnemyManager;
 

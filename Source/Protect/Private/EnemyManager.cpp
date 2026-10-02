@@ -12,8 +12,7 @@ void UEnemyManager::Init(UWorld* InWorld, const TArray<FEnemyPhase>& InPhases)
 *		プレイヤのX座標に応じて、フェーズを開始する
 *			(開始済のものは、無視する)
 * 
-*		敵1体分の更新も行う
-*			
+*		敵1体分の更新も行う		
 */
 void UEnemyManager::Update(float DeltaTime, const FVector& PlayerPos,const FVector& PlayerCameraPos)
 {

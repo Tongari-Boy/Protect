@@ -1,5 +1,7 @@
 ﻿#include "EnemyObject_Rusher.h"
 
+
+// 突進してくる敵の更新処理
 void UEnemyObject_Rusher::Update(float DeltaTime, const FVector& PlayerPos,const FVector& PlayerCameraPos)
 {
 	Super::Update(DeltaTime, PlayerPos,PlayerCameraPos);

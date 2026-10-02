@@ -17,7 +17,7 @@ class PROTECT_API UEnemyObject : public UStageObject
 public:
 	void Init(const FVector& Pos, float InRadius, int32 Hp);
 
-	virtual void Update(float DeltaTime,const FVector& PlaterPos);
+	virtual void Update(float DeltaTime,const FVector& PlayerPos,const FVector& PlayerCameraPos);
 
 	void AddHp(int Amount);
 	void SubtractHp(int Amount);

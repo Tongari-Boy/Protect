@@ -15,7 +15,7 @@ void UEnemyManager::Init(UWorld* InWorld, const TArray<FEnemyPhase>& InPhases)
 *		敵1体分の更新も行う
 *			
 */
-void UEnemyManager::Update(float DeltaTime, const FVector& PlayerPos)
+void UEnemyManager::Update(float DeltaTime, const FVector& PlayerPos,const FVector& PlayerCameraPos)
 {
 	for (FEnemyPhase& Phase : Phases)
 	{
@@ -28,7 +28,7 @@ void UEnemyManager::Update(float DeltaTime, const FVector& PlayerPos)
 
 	for (int32 i = ActiveObjects.Num() - 1; i >= 0; --i)
 	{
-		ActiveObjects[i]->Update(DeltaTime, PlayerPos);
+		ActiveObjects[i]->Update(DeltaTime, PlayerPos,PlayerCameraPos);
 
 		if (!ActiveObjects[i]->bIsActive)
 		{

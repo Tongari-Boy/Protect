@@ -19,7 +19,7 @@ class PROTECT_API UEnemyManager : public UObject
 	
 public:
 	void Init(UWorld* InWorld, const TArray<FEnemyPhase>& InPhases);
-	void Update(float DeltaTime, const FVector& PlayerPos);
+	void Update(float DeltaTime, const FVector& PlayerPos,const FVector& PlayerCameraPos);
 
 	const TArray<UEnemyObject*>& GetActiveEnemies() const { return ActiveObjects; }
 

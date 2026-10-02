@@ -2,7 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "EnemyObject.h"
+
 #include "EnemyObject_Rusher.generated.h"
+
 
 /**
  * 
@@ -13,7 +15,7 @@ class PROTECT_API UEnemyObject_Rusher : public UEnemyObject
 	GENERATED_BODY()
 
 public:
-	virtual void Update(float DeltaTime, const FVector& PlayerPos) override;
+	virtual void Update(float DeltaTime, const FVector& PlayerPos,const FVector& PlayerCameraPos) override;
 
 private:
 	float RushSpeed = 400.0f;

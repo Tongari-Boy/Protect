@@ -2,28 +2,69 @@
 
 #include "Kismet/GameplayStatics.h"
 #include "Migration/StageObject.h"
+#include "Migration/GameManager.h"
 
 
 /**
 *	初期化処理
-*		UObjectではGetWorld()が使えないため、ここでUWorld*を明示的に渡して保持
+*		UObjectではデフォルトでGetWorld()を持たないため、
+*		外部(GameManager)から明示的に UWorld を渡して保持させる。
+*
+*		また、ワールド破棄時にこのシステムが残留した場合のダングリングポインタを防ぐため、
+*		TWeakObjectPtrを採用している
 */
-void USoundSystem::Init(UWorld* InWorld, USoundBase* InImpactSound)
+void USoundSystem::Init(UWorld* InWorld,USoundBase* InStageSound, USoundBase* InEnemySound)
 {
 	World = InWorld;
-	ImpactSound = InImpactSound;
+	StageSound = InStageSound;
+	EnemySound = InEnemySound;
 }
 
 void USoundSystem::HandleCollision(const FCustomCollisionEvent& Event)
 {
-	if (!ImpactSound || !World.IsValid() || !Event.StageObject) return;
+	if (!World.IsValid()) return;
 
-	/** 衝突した岩の位置でサウンドを鳴らす */
+	float CurrentTime = World->GetTimeSeconds();
+	if (CurrentTime - LastHitTime > ComboResetTime)
+	{
+		// 間隔が空いていたらピッチをリセット
+		CurrentPitch = BasePitch;
+	}
+	else
+	{
+		// 連続ヒット:ピッチを上げる
+		CurrentPitch = FMath::Min(CurrentPitch + PitchStep, MaxPitch);
+	}
+
+	USoundBase* SoundToSpawn = nullptr;
+
+	/** 
+	*	発生したイベントの種類から
+	*		鳴らすサウンドを決める
+	* 
+	*	[feature]現在はステージオブジェクトと敵の2種類のため、
+	*			 2値の判定で実装できているが、今後イベントの種類が増えることを見越した実装にする
+	*/
+	if (Event.StageObject == nullptr)
+	{
+		SoundToSpawn = EnemySound;
+	}
+	else
+	{
+		SoundToSpawn = StageSound;
+	}
+
+	if (!SoundToSpawn)return;
+	
+	LastHitTime = CurrentTime;
+
+	/** 衝突したオブジェクトの位置でサウンドを鳴らす */
 	UGameplayStatics::PlaySoundAtLocation(
 		World.Get(),
-		ImpactSound,
-		Event.StageObject->Transform.GetLocation()
+		SoundToSpawn,
+		Event.GetLocation(),
+		FRotator::ZeroRotator,
+		1.0f,			// サウンドボリューム
+		CurrentPitch	// サウンドピッチ
 	);
-
-	UE_LOG(LogTemp, Warning, TEXT("Sound"));
 }

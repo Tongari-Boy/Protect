@@ -10,7 +10,7 @@
 void UStageManager::Init(UWorld* World, TSubclassOf<ARockVisual> VisualClass, const TArray<FVector>& RockPositions)
 {
 	/**
-	*	
+	*	岩の位置を指定
 	*/
 	for (const FVector& Pos : RockPositions)
 	{

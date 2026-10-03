@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Camera/CameraComponent.h"
 
 #include "ShipVisual.generated.h"
 
@@ -32,7 +31,4 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* MeshComp;	/** モデルオフセットの影響を受ける */
-
-	UPROPERTY(VisibleAnywhere)
-	UCameraComponent* CameraComp;	/** RootScneの子とすることで、メッシュのスケールに影響されない */
 };

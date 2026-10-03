@@ -6,16 +6,17 @@
 #include "Migration/GameObjectBase.h"
 #include "Migration/PlayerObject.h"
 #include "Migration/ShipVisual.h"
+#include "PlayerCamera.h"
 
 #include "Migration/BulletManager.h"
 #include "Migration/StageManager.h"
+#include "EnemyManager.h"
 
 #include "Migration/EventBus.h"
 #include "Migration/SoundSystem.h"
 #include "Migration/EffectSystem.h"
 #include "Migration/ScoreSystem.h"
 #include "Migration/TimeWidget.h"
-
 
 #include "GameManager.generated.h"
 
@@ -24,6 +25,8 @@ class UScoreWidget;
 
 /**
 *	ゲームマネージャークラス
+*		ゲームプレイレベルで用いるクラスの全体管理を行う
+*		プレイレベルでBeginPlayとTick処理を行うのはこのクラスのみ
 */
 UCLASS()
 class PROTECT_API AGameManager : public AActor
@@ -34,24 +37,22 @@ public:
 	/** コンストラクタ */
 	AGameManager();
 
-	/** ゲッター */
+	/** ゲッター・セッター群 */
 
 	UPlayerObject* GetPlayerObject() const { return Player; }
 	AShipVisual* GetPlayerVisual() const { return PlayerVisual; }
 	UBulletManager* GetBulletManager() const { return BulletManager; }
-	UScoreSystem* GetScoreSytem() const { return ScoreSystem; };
-	float GetElapsedTime() { return ElapsedTime; };
+	UScoreSystem* GetScoreSytem() const { return ScoreSystem; }
+	float GetElapsedTime() { return ElapsedTime; }
 
 protected:
 	/**
 	*	初期化処理
-	*		BeginPlayはここにしか存在しない
 	*/
 	virtual void BeginPlay() override;
 
 	/**
 	*	更新処理
-	*		Tickはここにしか存在しない
 	*/
 	virtual void Tick(float DeltaTime) override;
 
@@ -81,6 +82,17 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Spawn")
 	TSubclassOf<AShipVisual> PlayerVisualClass;
 
+	UPROPERTY()
+	APlayerCamera* PlayerCamera;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
+	TSubclassOf<APlayerCamera>PlayerCameraClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UPlayerStaminaWidget> StaminaWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly,Category="UI")
+	TSubclassOf<UPlayerHPWidget> HPWidgetClass;
 
 	/** Bullet関連 */
 
@@ -98,8 +110,13 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
 	TSubclassOf<ARockVisual> RockVisualClass;
 
-	UPROPERTY(EditDefaultsOnly, Category = "UI")
-	TSubclassOf<UPlayerStaminaWidget> StaminaWidgetClass;
+	/** 敵関連 */
+
+	UPROPERTY()
+	UEnemyManager* EnemyManager;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Enemy")
+	TArray<FEnemyPhase> EnemyPhases;
 
 	/** イベント関連 */
 
@@ -107,25 +124,32 @@ private:
 	UEventBus* EventBus;
 
 	UPROPERTY()
-	USoundSystem* SoundSystem;
+	USoundSystem* SoundSystem;	// サウンドシステム
 
 	UPROPERTY(EditDefaultsOnly, Category = "Sound")
-	USoundBase* CollisionSound;
+	USoundBase* CollisionSound_Player;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Sound")
+	USoundBase* CollisionSound_Enemy;
 
 	UPROPERTY()
-	UEffectSystem* EffectSystem;
+	UEffectSystem* EffectSystem;	// エフェクトシステム
 
 	UPROPERTY(EditDefaultsOnly, Category = "Effect")
-	UNiagaraSystem* CollisionEffect;
+	UNiagaraSystem* CollisionEffect_Player;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Effect")
+	UNiagaraSystem* CollisionEffect_Enemy;
 
 	UPROPERTY()
-	UScoreSystem* ScoreSystem;
+	UScoreSystem* ScoreSystem;	// スコアシステム
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UScoreWidget> ScoreWidgetClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
-	UTimeWidget* TimeWidget;
+	UTimeWidget* TimeWidget;	// 残り時間表示処理
+
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UTimeWidget> TimeWidgetClass;
 

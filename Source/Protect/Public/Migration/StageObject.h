@@ -27,4 +27,6 @@ public:
 
 	/** 初期化処理 */
 	void Init(const FVector& Pos, float InRadius);
+
+	virtual void Update(float DeltaTime) override {}
 };

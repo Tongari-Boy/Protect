@@ -7,7 +7,7 @@
 
 
 /**
-* 弾1つ分の見た目クラス
+	弾1つ分の見た目クラス
 */
 UCLASS()
 class PROTECT_API ABulletVisual : public AActor
@@ -15,17 +15,17 @@ class PROTECT_API ABulletVisual : public AActor
 	GENERATED_BODY()
 	
 public:	
-	/** コンストラクタ */
+	// コンストラクタ
 	ABulletVisual();
 
-	/** 弾の位置の適用 */
+	// 弾の位置の適用
 	void ApplyTransform(const FTransform& WorldTransform);
 
-	/** 弾のアクティブ状隊に応じて見た目のオン/オフを切り替える */
+	// 弾のアクティブ状隊に応じて見た目のオン/オフを切り替える
 	void SetVisualActive(bool bActive);
 
 private:
-	/** 弾の見た目 */
+	// 弾の見た目
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* MeshComp;
 };

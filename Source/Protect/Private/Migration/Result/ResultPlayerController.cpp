@@ -7,10 +7,14 @@
 #include <Kismet\GameplayStatics.h>
 
 
+/**
+*	
+*/
 void AResultPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// マッピングコンテキストの追加
 	if (ULocalPlayer* LP = GetLocalPlayer())
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* SubSystem = 
@@ -20,24 +24,27 @@ void AResultPlayerController::BeginPlay()
 		}
 	}
 
+	// ResultWidgetの可視化
 	if (UResultWidget* Widget = CreateWidget<UResultWidget>(this, ResultWidgetClass))
 	{
 		Widget->AddToViewport();
 	}
 }
 
-
+/**
+* 
+*/
 void AResultPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
 	if (UEnhancedInputComponent* EIC = Cast<UEnhancedInputComponent>(InputComponent))
 	{
-		EIC->BindAction(StartAction, ETriggerEvent::Started, this, &AResultPlayerController::HandeReturn);
+		EIC->BindAction(StartAction, ETriggerEvent::Started, this, &AResultPlayerController::HandleReturn);
 	}
 }
 
-void AResultPlayerController::HandeReturn(const FInputActionValue& Value)
+void AResultPlayerController::HandleReturn(const FInputActionValue& Value)
 {
 	UGameplayStatics::OpenLevel(this, TitleLevelName);
 }

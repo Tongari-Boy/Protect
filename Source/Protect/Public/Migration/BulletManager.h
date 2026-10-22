@@ -28,6 +28,14 @@ public:
 
 	// プールのゲッター
 	TArray<UBulletObject*> GetBulletsPool() const { return BulletPool; };
+	
+	int32 GetCapacity() const {return MaxBullets; };
+	int32 GetActiveCount() const;
+	int32 GetFreeCount() const {return MaxBullets - GetActiveCount(); };
+	
+	int32 GetPeakActiveCount() const {return PeakActiveCount; };
+	int32 GetFireRequestCount() const {return FireRequestCount; };
+	int32 GetFireRejectCount() const {return FireRejectCount; };
 
 private:
 
@@ -37,4 +45,8 @@ private:
 
 	UPROPERTY()
 	TArray<ABulletVisual*> VisualPool;	// 弾の物理プール
+	
+	int32 PeakActiveCount = 0;
+	int32 FireRequestCount = 0;
+	int32 FireRejectCount = 0;
 };

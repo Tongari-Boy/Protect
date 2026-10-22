@@ -97,6 +97,10 @@ void AGameManager::BeginPlay()
 			TimeWidget->AddToViewport();
 		}
 	}
+	
+	/* デバックウィンドウ関連 BulletManagerの初期化後 */
+	DebugStats = NewObject<UDebugStatusSystem>(this);
+	DebugStats->Init(GetWorld(),BulletManager);
 
 	ElapsedTime = PlayTimeLimit;
 }
@@ -108,6 +112,7 @@ void AGameManager::BeginPlay()
 void AGameManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	DebugStats->Update(DeltaTime);
 
 	/** Playerの更新 */
 	Player->Update(DeltaTime);

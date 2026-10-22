@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "DebugStatusSystem.h"
 #include "GameFramework/Actor.h"
 
 #include "Migration/PlayerObject.h"
@@ -43,6 +44,7 @@ public:
 	UBulletManager* GetBulletManager() const { return BulletManager; }
 	UScoreSystem* GetScoreSystem() const { return ScoreSystem; }
 	float GetElapsedTime () const { return ElapsedTime; }
+	UDebugStatusSystem* GetDebugStats() const {return DebugStats;}
 
 protected:
 	/**
@@ -152,4 +154,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UTimeWidget> TimeWidgetClass;
+	
+	// デバックウィンドウ関連
+	UPROPERTY()
+	UDebugStatusSystem* DebugStats;
 };

@@ -66,7 +66,7 @@ public:
 private:
 	/** ゲームフロー関連 */
 	UPROPERTY(EditDefaultsOnly, Category = "GameFlow")
-	float PlayTimeLimit = 30.f;
+	float PlayTimeLimit = 90.f;
 
 	float ElapsedTime = 0.f;
 	

@@ -10,6 +10,7 @@
 
 #include "Migration/BulletManager.h"
 #include "Migration/StageManager.h"
+#include "FollowScenery.h"
 #include "EnemyManager.h"
 
 #include "Migration/EventBus.h"
@@ -109,9 +110,21 @@ private:
 	UPROPERTY()
 	UStageManager* StageManager;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
-	TSubclassOf<ARockVisual> RockVisualClass;
-
+	UPROPERTY(EditDefaultsOnly, Category = "Stage")
+	TArray<FStageObjectGroup> StageObjectGroups;
+	
+	UPROPERTY(EditAnywhere,Category="Stage")
+	int32 RockCount = 30;
+	
+	UPROPERTY(EditAnywhere,Category="Stage")
+	FVector RockAreaMin = FVector(1000.f,-500.f,0.f);
+	
+	UPROPERTY(EditAnywhere,Category="Stage")
+	FVector RockAreaMax = FVector(6500.f,500.f,500.f);
+	
+	UPROPERTY()
+	TArray<AFollowScenery*> FollowSceneries;
+	
 	/** 敵関連 */
 
 	UPROPERTY()
